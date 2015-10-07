@@ -9,6 +9,7 @@ class UnidadNegocio {
     private $cve_unidad_negocio;
     private $nombre;
     private $activo;
+    private $_existe;
     
     function __construct() {
         $this->limpiar();
