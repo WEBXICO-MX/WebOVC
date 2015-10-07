@@ -1,10 +1,11 @@
 <?php
-
 /**
  *
  * @author Roberto Eder Weiss Juárez
  * @see {@link http://webxico.blogspot.mx/}
  */
+require_once 'UtilDB.php';
+
 class TipoContenido {
 
     private $cve_tipo_contenido;
@@ -77,7 +78,9 @@ class TipoContenido {
     }
 
     function borrar($cveTipoContenido) {
-
+      $sql = "DELETE FROM tipos_contenido WHERE cve_tipo_contenido = $cveTipoContenido";
+      $count = UtilDB::ejecutaSQL($sql);
+      return $count;
     }
 
     function getCve_tipo_contenido() {

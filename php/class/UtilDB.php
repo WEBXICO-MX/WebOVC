@@ -5,8 +5,6 @@
  * @author Roberto Eder Weiss Juárez
  * @see {@link http://webxico.blogspot.mx/}
  */
-require_once('UtilDB.php');
-
 class UtilDB {
 
     private static $servername = "localhost";
@@ -14,7 +12,7 @@ class UtilDB {
     private static $password = "";
     private static $database = "ovc";
     private static $cnx = NULL;
-    
+
     function __construct() {
         
     }
@@ -36,13 +34,11 @@ class UtilDB {
         $cnx = UtilDB::getConnection();
         $sql = "SELECT MAX($campo) AS num FROM $tabla";
         $num = 0;
-        $rst = $cnx->query($sql);
-        /* Comprobar el número de filas que coinciden con la sentencia SELECT */
-        if ($rst->rowCount() > 0) {
-            foreach ($rst->fetch() as $row) {
-                $num = $row['num'] + 1;
-            }
+
+        foreach ($cnx->query($sql) as $row) {
+            $num = $row['num'] + 1;
         }
+
         return $num;
     }
 
