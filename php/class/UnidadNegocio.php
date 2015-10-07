@@ -28,7 +28,7 @@ class UnidadNegocio {
     
     function __construct1($cveUnidadNegocio) {
         $this->limpiar();
-        $this->cveUnidadNegocio = $cveUnidadNegocio;
+        $this->cve_unidad_negocio = $cveUnidadNegocio;
         $this->cargar();
     }
     
