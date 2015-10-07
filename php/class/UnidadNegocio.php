@@ -80,7 +80,7 @@ class UnidadNegocio {
       $count = UtilDB::ejecutaSQL($sql);
       return $count;
     }
-    
+   
     function getCve_unidad_negocio() {
         return $this->cve_unidad_negocio;
     }
@@ -103,5 +103,13 @@ class UnidadNegocio {
 
     function setActivo($activo) {
         $this->activo = $activo;
+    }
+    
+    function get_existe() {
+        return $this->_existe;
+    }
+
+    function set_existe($_existe) {
+        $this->_existe = $_existe;
     }
 }
