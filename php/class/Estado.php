@@ -77,8 +77,8 @@ class Estado {
         $rst->closeCursor();
     }
 
-    function borrar($cve_estado) {
-      $sql = "DELETE FROM estados WHERE cve_estado = $cve_estado";
+    function borrar() {
+      $sql = "DELETE FROM estados WHERE cve_estado =  $this->cve_estado";
       $count = UtilDB::ejecutaSQL($sql);
       return $count;
     }
