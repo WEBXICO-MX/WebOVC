@@ -91,8 +91,8 @@ class Actividad {
         $rst->closeCursor();
     }
 
-    function borrar($cveActividad, $cveTipo, $cveUnidadNegocio) {
-        $sql = "DELETE FROM actividades WHERE cve_actividad = $cveActividad AND cve_tipo = $cveTipo AND cve_unidad_negocio = $cveUnidadNegocio";
+    function borrar() {
+        $sql = "DELETE FROM actividades WHERE cve_actividad = $this->cve_actividad AND cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
         $count = UtilDB::ejecutaSQL($sql);
         return $count;
     }
