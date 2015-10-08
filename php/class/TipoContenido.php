@@ -9,8 +9,7 @@ require_once 'UtilDB.php';
 class TipoContenido {
 
     private $cve_tipo_contenido;
-    private $nombre;
-    private $descripcion;
+    private $nombre;   
     private $activo;
     private $_existe;
     
@@ -40,8 +39,7 @@ class TipoContenido {
     private function limpiar() {
 
         $this->cve_tipo_contenido = 0;
-        $this->nombre = "";
-        $this->descripcion = "";
+        $this->nombre = "";      
         $this->activo = false;
         $this->_existe = false;
     }
@@ -52,15 +50,14 @@ class TipoContenido {
 
         if (!$this->_existe) {
             $this->cve_tipo_contenido = UtilDB::getSiguienteNumero("tipos_contenido", "cve_tipo_contenido");
-            $sql = "INSERT INTO tipos_contenido VALUES($this->cve_tipo_contenido,'$this->nombre','$this->descripcion',$this->activo)";
+            $sql = "INSERT INTO tipos_contenido VALUES($this->cve_tipo_contenido,'$this->nombre',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE tipos_contenido SET ";
-            $sql.= "nombre = '$this->nombre',";
-            $sql.= "descripcion = '$this->descripcion',";
+            $sql.= "nombre = '$this->nombre',";           
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_tipo_contenido = $this->cve_tipo_contenido";
             $count = UtilDB::ejecutaSQL($sql);
@@ -74,8 +71,7 @@ class TipoContenido {
 
         foreach ($rst as $row) {
             $this->cve_tipo_contenido = $row['cve_tipo_contenido'];
-            $this->nombre = $row['nombre'];
-            $this->descripcion = $row['descripcion'];
+            $this->nombre = $row['nombre'];           
             $this->activo = $row['activo'];
             $this->_existe = true;
         }
@@ -95,10 +91,6 @@ class TipoContenido {
     function getNombre() {
         return $this->nombre;
     }
-
-    function getDescripcion() {
-        return $this->descripcion;
-    }
     
     function getActivo() {
         return $this->activo;
@@ -114,12 +106,8 @@ class TipoContenido {
 
     function setNombre($nombre) {
         $this->nombre = $nombre;
-    }
-    
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
+    }   
+   
     function setActivo($activo) {
         $this->activo = $activo;
     }   
