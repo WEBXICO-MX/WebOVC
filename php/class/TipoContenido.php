@@ -12,6 +12,7 @@ class TipoContenido {
     private $nombre;
     private $activo;
     private $_existe;
+    
 
     function __construct() {
         $this->limpiar();
@@ -94,6 +95,10 @@ class TipoContenido {
     function getActivo() {
         return $this->activo;
     }
+    
+    function get_existe() {
+        return $this->_existe;
+    }
 
     function setCve_tipo_contenido($cve_tipo_contenido) {
         $this->cve_tipo_contenido = $cve_tipo_contenido;
@@ -105,6 +110,9 @@ class TipoContenido {
 
     function setActivo($activo) {
         $this->activo = $activo;
-    }
+    }   
 
+    function set_existe($_existe) {
+        $this->_existe = $_existe;
+    }
 }
