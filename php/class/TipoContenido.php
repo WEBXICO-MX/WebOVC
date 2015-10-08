@@ -78,8 +78,8 @@ class TipoContenido {
         $rst->closeCursor();
     }
 
-    function borrar($cveTipoContenido) {
-      $sql = "DELETE FROM tipos_contenido WHERE cve_tipo_contenido = $cveTipoContenido";
+    function borrar() {
+      $sql = "DELETE FROM tipos_contenido WHERE cve_tipo_contenido = $this->cve_tipo_contenido";
       $count = UtilDB::ejecutaSQL($sql);
       return $count;
     }

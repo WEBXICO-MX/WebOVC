@@ -80,8 +80,8 @@ class Municipio {
         $rst->closeCursor();
     }
 
-    function borrar($cveEstado, $cveMunicipio) {
-        $sql = "DELETE FROM municipios WHERE cve_estado = $cveEstado AND cve_municipio = $cveMunicipio";
+    function borrar() {
+        $sql = "DELETE FROM municipios WHERE cve_estado = $this->cve_estado AND cve_municipio = $this->cve_municipio";
         $count = UtilDB::ejecutaSQL($sql);
         return $count;
     }
