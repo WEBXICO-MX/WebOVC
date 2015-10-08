@@ -12,6 +12,7 @@ class TipoActividad {
     private $cve_tipo;
     private $cve_unidad_negocio;
     private $nombre;
+    private $descripcion;
     private $activo;
     private $_existe;
 
@@ -42,6 +43,7 @@ class TipoActividad {
         $this->cve_tipo = 0;
         $this->cve_unidad_negocio = 0;
         $this->nombre = "";
+        $this->descripcion = "";
         $this->activo = false;
         $this->_existe = false;
     }
@@ -51,7 +53,7 @@ class TipoActividad {
         $count = 0;
 
         if (!$this->_existe) {
-            $sql = "INSERT INTO tipos_actividades VALUES($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre',$this->activo)";
+            $sql = "INSERT INTO tipos_actividades VALUES($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre','$this->descripcion',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -59,6 +61,7 @@ class TipoActividad {
         } else {
             $sql = "UPDATE tipos_actividades SET ";
             $sql.= "nombre = '$this->nombre',";
+            $sql.= "descripcion = '$this->descripcion',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
             $count = UtilDB::ejecutaSQL($sql);
@@ -74,6 +77,7 @@ class TipoActividad {
             $this->cve_tipo = $row['cve_tipo'];
             $this->cve_unidad_negocio = $row['cve_unidad_negocio'];
             $this->nombre = $row['nombre'];
+            $this->descripcion = $row['descripcion'];
             $this->activo = $row['activo'];
             $this->_existe = true;
         }
@@ -97,7 +101,11 @@ class TipoActividad {
     function getNombre() {
         return $this->nombre;
     }
-
+    
+    function getDescripcion() {
+        return $this->descripcion;
+    }
+    
     function getActivo() {
         return $this->activo;
     }
@@ -117,7 +125,11 @@ class TipoActividad {
     function setNombre($nombre) {
         $this->nombre = $nombre;
     }
-
+    
+    function setDescripcion($descripcion) {
+        $this->descripcion = $descripcion;
+    }
+    
     function setActivo($activo) {
         $this->activo = $activo;
     }
@@ -125,5 +137,4 @@ class TipoActividad {
     function set_existe($_existe) {
         $this->_existe = $_existe;
     }
-
 }
