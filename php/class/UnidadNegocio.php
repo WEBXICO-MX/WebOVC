@@ -77,8 +77,8 @@ class UnidadNegocio {
         $rst->closeCursor();
     }
 
-    function borrar($cve_unidad_negocio) {
-      $sql = "DELETE FROM unidades_negocio WHERE cve_unidad_negocio = $cve_unidad_negocio";
+    function borrar() {
+      $sql = "DELETE FROM unidades_negocio WHERE cve_unidad_negocio =  $this->cve_unidad_negocio";
       $count = UtilDB::ejecutaSQL($sql);
       return $count;
     }
