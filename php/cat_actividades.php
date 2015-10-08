@@ -109,12 +109,27 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <fieldset>
                                 <legend>Captura</legend>
                                 <div class="form-group">
-                                    <label for="txtCveTipo" class="col-lg-2 control-label">ID Actividad</label>
+                                    <label for="txtCveActividad" class="col-lg-2 control-label">ID Actividad</label>
                                     <div class="col-lg-10">
                                         <input type="hidden" id="xAccion" name="xAccion" value="0">
                                         <input type="text" class="form-control" id="txtCveActividad" name="txtCveActividad" placeholder="ID Tipo actividad" readonly value="<?php echo($a != NULL ? $a->getCve_actividad():""); ?>">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                <label for="cmbCveRito">Rito:</label>
+                                <select name="cmbCveRito" id="cmbCveRito" class="form-control" placeholder="Rito">
+                                    <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
+                                    <?php
+                                    $sql2 = "SELECT * FROM ritos where activo=1 ORDER BY cve_rito";
+                                    $rst2 = UtilDB::ejecutaConsulta($sql2);
+                                    foreach ($rst2 as $row) {
+                                        echo("<option value='" . $row['cve_rito'] . "' " . ($clasf->getCve_clasificacion() != 0 ? ($clasf->getCve_rito()->getCve_rito() == $row['cve_rito'] ? "selected" : "") : "") . ">" . $row['descripcion'] . "</option>");
+                                    }
+                                    $rst2->closeCursor();
+                                    ?>
+
+                                </select>
+                            </div>
                                 <div class="form-group">
                                     <label for="txtNombre" class="col-lg-2 control-label">Nombre</label>
                                     <div class="col-lg-10">
