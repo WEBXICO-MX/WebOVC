@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $msg = "Ha ocurrido un imprevisto al guardar los datos";
         }
     } elseif ($xAccion == 'eliminar') {
-        $count = $tc->borrar($txtCveTipoContenido);
+        $count = $tc->borrar();
         if($count > 0)
         { $msg = "El registro ha sido borrado con éxito"; $tc = NULL;}
         else
