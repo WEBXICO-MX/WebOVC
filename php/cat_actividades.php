@@ -116,20 +116,35 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label for="cmbCveRito">Rito:</label>
-                                <select name="cmbCveRito" id="cmbCveRito" class="form-control" placeholder="Rito">
-                                    <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                                    <?php
-                                    $sql2 = "SELECT * FROM ritos where activo=1 ORDER BY cve_rito";
-                                    $rst2 = UtilDB::ejecutaConsulta($sql2);
-                                    foreach ($rst2 as $row) {
-                                        echo("<option value='" . $row['cve_rito'] . "' " . ($clasf->getCve_clasificacion() != 0 ? ($clasf->getCve_rito()->getCve_rito() == $row['cve_rito'] ? "selected" : "") : "") . ">" . $row['descripcion'] . "</option>");
-                                    }
-                                    $rst2->closeCursor();
-                                    ?>
+                                <label for="cmbCveTipo">Tipo de actividad:</label>
+                                    <select name="cmbCveTipo" id="cmbCveTipo" class="form-control" placeholder="Tipo de actividad">
+                                        <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
+                                        <?php
+                                        $sql2 = "SELECT * FROM tipos_actividades where activo=1 ORDER BY cve_tipo";
+                                        $rst2 = UtilDB::ejecutaConsulta($sql2);
+                                        foreach ($rst2 as $row) {
+                                            echo("<option value='" . $row['cve_tipo'] . "' " . ($ta->getCve_tipo() != 0 ? ($ta->getCve_tipo() == $row['cve_tipo'] ? "selected" : "") : "") . ">" . $row['nombre'] . "</option>");
+                                        }
+                                        $rst2->closeCursor();
+                                        ?>
 
-                                </select>
-                            </div>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                <label for="cmbCveUnidadNegocio">Unidad de negocio:</label>
+                                    <select name="cmbCveUnidadNegocio" id="cmbCveUnidadNegocio" class="form-control" placeholder="Unidad de negocio">
+                                        <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
+                                        <?php
+                                        $sql2 = "SELECT * FROM unidades_negocio WHERE activo=1 ORDER BY cve_unidad_negocio";
+                                        $rst2 = UtilDB::ejecutaConsulta($sql2);
+                                        foreach ($rst2 as $row) {
+                                            echo("<option value='" . $row['cve_unidad_negocio'] . "' " . ($a->getCve_unidad_negocio() != 0 ? ($a->getCve_unidad_negocio() == $row['cve_unidad_negocio'] ? "selected" : "") : "") . ">" . $row['nombre'] . "</option>");
+                                        }
+                                        $rst2->closeCursor();
+                                        ?>
+
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="txtNombre" class="col-lg-2 control-label">Nombre</label>
                                     <div class="col-lg-10">
