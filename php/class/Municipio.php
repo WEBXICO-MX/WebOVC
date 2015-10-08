@@ -5,6 +5,8 @@
  * @author Roberto Eder Weiss Juárez
  * @see {@link http://webxico.blogspot.mx/}
  */
+require_once 'UtilDB.php';
+
 class Municipio {
 
     private $cve_estado;

@@ -5,6 +5,8 @@
  *
  * @author Vasili
  */
+require_once 'UtilDB.php';
+
 class Estado {
    
     private $cve_estado;

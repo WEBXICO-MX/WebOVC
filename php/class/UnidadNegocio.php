@@ -4,6 +4,8 @@
  *
  * @author Vasili
  */
+require_once 'UtilDB.php';
+
 class UnidadNegocio {
     
     private $cve_unidad_negocio;
