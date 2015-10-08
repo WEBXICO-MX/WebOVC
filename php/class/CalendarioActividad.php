@@ -125,8 +125,8 @@ class CalendarioActividad {
         $rst->closeCursor();
     }
 
-    function borrar($cveCalendario) {
-        $sql = "DELETE FROM calendario_actividades WHERE cve_unidad_negocio = $cveCalendario";
+    function borrar() {
+        $sql = "DELETE FROM calendario_actividades WHERE cve_calendario = $this->cve_calendario";
         $count = UtilDB::ejecutaSQL($sql);
         return $count;
     }
