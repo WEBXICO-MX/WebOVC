@@ -46,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($xAccion == 'eliminar') {
         $count = $a->borrar();
         if($count > 0)
-        { //$msg = "El registro ha sido borrado con éxito"; $a = NULL;
+        { $msg = "El registro ha sido borrado con éxito"; $a = NULL;
             
         }
         else
         { 
-            //$msg = "Ha ocurrido un imprevisto al borrar el registro"; $a = NULL;
+            $msg = "Ha ocurrido un imprevisto al borrar el registro"; $a = NULL;
             
         }
     } elseif ($xAccion == 'logout') {
@@ -126,7 +126,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                         $sql2 = "SELECT * FROM tipos_actividades where activo=1 ORDER BY cve_tipo";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                                         foreach ($rst2 as $row) {
-                                            echo("<option value='" . $row['cve_tipo'] . "' " . ($a->getCve_tipo() != 0 ? ($a->getCve_tipo() == $row['cve_tipo'] ? "selected" : "") : "") . ">" . $row['nombre'] . "</option>");
+                                            echo("<option value='" . $row['cve_tipo'] . "' " . ($a != NULL ? ($a->getCve_actividad() != 0 ? ($a->getCve_tipo() == $row['cve_tipo'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
                                         }
                                         $rst2->closeCursor();
                                         ?>
