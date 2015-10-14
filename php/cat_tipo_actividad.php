@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $txtDescripcion = test_input($_POST["txtDescripcion"]);
     $cbxActivo = isset($_POST["cbxActivo"]) ? 1 : 0;
 
-    if ($txtCveTipo != 0) {
+    if ($txtCveTipo != 0 && $txtCveUnidadNegocio != 0) {
         $ta = new TipoActividad($txtCveTipo,$txtCveUnidadNegocio);
     }
 
@@ -113,20 +113,21 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label for="txtCveUnidadNegocio">Unidad de negocio:</label>
-                                    <select name="txtCveUnidadNegocio" id="txtCveUnidadNegocio" class="form-control" placeholder="Tipo de unidad de negocio">
-                                        <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                                        <?php
-                                        //echo($a);
-                                        $sql2 = "SELECT * FROM unidades_negocio WHERE activo=1 ORDER BY cve_unidad_negocio";
-                                        $rst2 = UtilDB::ejecutaConsulta($sql2);
-                                        foreach ($rst2 as $row) {
-                                            echo("<option value='" . $row['cve_unidad_negocio'] . "' " . ($ta->getCve_unidad_negocio() != 0 ? ($ta->getCve_unidad_negocio() == $row['cve_unidad_negocio'] ? "selected" : "") : "") . ">" . $row['nombre'] . "</option>");
-                                        }
-                                        $rst2->closeCursor();
-                                        ?>
-
-                                    </select>
+                                    <label for="txtCveUnidadNegocio">Unidad de negocio:</label>
+                                    <div class="col-lg-10">
+                                        <select name="txtCveUnidadNegocio" id="txtCveUnidadNegocio" class="form-control">
+                                            <option value="0">----- SELECCIONE UNA OPCIÓN -----</option>
+                                            <?php
+                                            //echo($a);
+                                            $sql2 = "SELECT * FROM unidades_negocio WHERE activo=1 ORDER BY cve_unidad_negocio";
+                                            $rst2 = UtilDB::ejecutaConsulta($sql2);
+                                            foreach ($rst2 as $row) {
+                                                echo("<option value='" . $row['cve_unidad_negocio'] . "' " . ($ta != NULL ? ($ta->getCve_unidad_negocio() != 0 ? ($ta->getCve_unidad_negocio() == $row['cve_unidad_negocio'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
+                                            }
+                                            $rst2->closeCursor();
+                                            ?>
+                                        </select>
+                                    </div> 
                                 </div>                               
                                 <div class="form-group">
                                     <label for="txtNombre" class="col-lg-2 control-label">Nombre</label>
