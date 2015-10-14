@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2015 a las 18:12:27
+-- Tiempo de generación: 14-10-2015 a las 21:39:42
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `actividades` (
   `cve_actividad` int(11) NOT NULL,
   `cve_tipo` int(11) NOT NULL,
-  `cve_unidad_negocio` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL,
   `descripcion` varchar(200) NOT NULL,
   `activo` bit(1) NOT NULL
@@ -44,8 +43,6 @@ CREATE TABLE IF NOT EXISTS `actividades` (
 CREATE TABLE IF NOT EXISTS `calendario_actividades` (
   `cve_calendario` int(11) NOT NULL,
   `cve_actividad` int(11) NOT NULL,
-  `cve_tipo` int(11) NOT NULL,
-  `cve_unidad_negocio` int(11) NOT NULL,
   `fecha_inicio` datetime NOT NULL,
   `fecha_fin` datetime NOT NULL,
   `lugar` varchar(40) DEFAULT NULL,
@@ -2611,16 +2608,8 @@ CREATE TABLE IF NOT EXISTS `tipos_actividades` (
   `cve_tipo` int(11) NOT NULL,
   `cve_unidad_negocio` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `descripcion` varchar(300) NOT NULL,
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tipos_actividades`
---
-
-INSERT INTO `tipos_actividades` (`cve_tipo`, `cve_unidad_negocio`, `nombre`, `descripcion`, `activo`) VALUES
-(1, 1, 'Cursos', 'ok1', b'1');
 
 -- --------------------------------------------------------
 
@@ -2647,13 +2636,6 @@ CREATE TABLE IF NOT EXISTS `unidades_negocio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla para guardar los 2 giros del negocio, el de capacitaci';
 
 --
--- Volcado de datos para la tabla `unidades_negocio`
---
-
-INSERT INTO `unidades_negocio` (`cve_unidad_negocio`, `nombre`, `activo`) VALUES
-(1, 'Grupo HISAS', b'1');
-
---
 -- Índices para tablas volcadas
 --
 
@@ -2661,9 +2643,9 @@ INSERT INTO `unidades_negocio` (`cve_unidad_negocio`, `nombre`, `activo`) VALUES
 -- Indices de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  ADD PRIMARY KEY (`cve_actividad`,`cve_tipo`,`cve_unidad_negocio`),
+  ADD PRIMARY KEY (`cve_actividad`),
   ADD KEY `index_1` (`cve_actividad`),
-  ADD KEY `fk_reference_2` (`cve_tipo`,`cve_unidad_negocio`);
+  ADD KEY `fk_reference_2` (`cve_tipo`);
 
 --
 -- Indices de la tabla `calendario_actividades`
@@ -2671,7 +2653,7 @@ ALTER TABLE `actividades`
 ALTER TABLE `calendario_actividades`
   ADD PRIMARY KEY (`cve_calendario`),
   ADD KEY `index_1` (`cve_calendario`),
-  ADD KEY `fk_reference_3` (`cve_actividad`,`cve_tipo`,`cve_unidad_negocio`),
+  ADD KEY `fk_reference_3` (`cve_actividad`),
   ADD KEY `fk_reference_5` (`cve_estado`,`cve_municipio`);
 
 --
@@ -2700,7 +2682,7 @@ ALTER TABLE `municipios`
 -- Indices de la tabla `tipos_actividades`
 --
 ALTER TABLE `tipos_actividades`
-  ADD PRIMARY KEY (`cve_tipo`,`cve_unidad_negocio`),
+  ADD PRIMARY KEY (`cve_tipo`),
   ADD KEY `index_1` (`cve_tipo`),
   ADD KEY `fk_reference_1` (`cve_unidad_negocio`);
 
@@ -2726,13 +2708,13 @@ ALTER TABLE `unidades_negocio`
 -- Filtros para la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  ADD CONSTRAINT `fk_reference_2` FOREIGN KEY (`cve_tipo`, `cve_unidad_negocio`) REFERENCES `tipos_actividades` (`cve_tipo`, `cve_unidad_negocio`);
+  ADD CONSTRAINT `fk_reference_2` FOREIGN KEY (`cve_tipo`) REFERENCES `tipos_actividades` (`cve_tipo`);
 
 --
 -- Filtros para la tabla `calendario_actividades`
 --
 ALTER TABLE `calendario_actividades`
-  ADD CONSTRAINT `fk_reference_3` FOREIGN KEY (`cve_actividad`, `cve_tipo`, `cve_unidad_negocio`) REFERENCES `actividades` (`cve_actividad`, `cve_tipo`, `cve_unidad_negocio`),
+  ADD CONSTRAINT `fk_reference_3` FOREIGN KEY (`cve_actividad`) REFERENCES `actividades` (`cve_actividad`),
   ADD CONSTRAINT `fk_reference_5` FOREIGN KEY (`cve_estado`, `cve_municipio`) REFERENCES `municipios` (`cve_estado`, `cve_municipio`);
 
 --
