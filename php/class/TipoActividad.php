@@ -12,7 +12,6 @@ class TipoActividad {
     private $cve_tipo;
     private $cve_unidad_negocio;
     private $nombre;
-    private $descripcion;
     private $activo;
     private $_existe;
 
@@ -42,7 +41,6 @@ class TipoActividad {
         $this->cve_tipo = 0;
         $this->cve_unidad_negocio = 0;
         $this->nombre = "";
-        $this->descripcion = "";
         $this->activo = false;
         $this->_existe = false;
     }
@@ -53,7 +51,7 @@ class TipoActividad {
 
         if (!$this->_existe) {
             $this->cve_tipo = UtilDB::getSiguienteNumero("tipos_actividades", "cve_tipo");
-            $sql = "INSERT INTO tipos_actividades VALUES($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre','$this->descripcion',$this->activo)";
+            $sql = "INSERT INTO tipos_actividades VALUES($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre',$this->activo)";
             echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
@@ -63,7 +61,6 @@ class TipoActividad {
             $sql = "UPDATE tipos_actividades SET ";
             $sql.= "cve_unidad_negocio = $this->cve_unidad_negocio,";
             $sql.= "nombre = '$this->nombre',";
-            $sql.= "descripcion = '$this->descripcion',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_tipo = $this->cve_tipo";
             echo($sql);
@@ -80,7 +77,6 @@ class TipoActividad {
             $this->cve_tipo = $row['cve_tipo'];
             $this->cve_unidad_negocio = $row['cve_unidad_negocio'];
             $this->nombre = $row['nombre'];
-            $this->descripcion = $row['descripcion'];
             $this->activo = $row['activo'];
             $this->_existe = true;
         }
@@ -105,10 +101,6 @@ class TipoActividad {
         return $this->nombre;
     }
     
-    function getDescripcion() {
-        return $this->descripcion;
-    }
-    
     function getActivo() {
         return $this->activo;
     }
@@ -127,10 +119,6 @@ class TipoActividad {
 
     function setNombre($nombre) {
         $this->nombre = $nombre;
-    }
-    
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
     }
     
     function setActivo($activo) {
