@@ -15,7 +15,6 @@ $xAccion = "";
 $txtCveTipo = 0;
 $txtCveUnidadNegocio = 0;
 $txtNombre = "";
-$txtDescripcion = "";
 $cbxActivo = 0;
 $msg = "";
 
@@ -24,17 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $txtCveTipo = (int) test_input($_POST["txtCveTipo"]);
     $txtCveUnidadNegocio = (int) test_input($_POST["txtCveUnidadNegocio"]);
     $txtNombre = test_input($_POST["txtNombre"]);
-    $txtDescripcion = test_input($_POST["txtDescripcion"]);
     $cbxActivo = isset($_POST["cbxActivo"]) ? 1 : 0;
 
-    if ($txtCveTipo != 0 && $txtCveUnidadNegocio != 0) {
-        $ta = new TipoActividad($txtCveTipo,$txtCveUnidadNegocio);
+    if ($txtCveTipo != 0) {
+        $ta = new TipoActividad($txtCveTipo);
     }
 
     if ($xAccion == 'grabar') {
         $ta->setCve_unidad_negocio($txtCveUnidadNegocio);
         $ta->setNombre($txtNombre);
-        $ta->setDescripcion($txtDescripcion);
         $ta->setActivo($cbxActivo);
         $count = $ta->grabar();
 
@@ -56,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$sql = "SELECT ta.cve_tipo, un.cve_unidad_negocio, un.nombre as unidad_negocio, ta.nombre as actividad, ta.descripcion, ta.activo ";
+$sql = "SELECT ta.cve_tipo, un.cve_unidad_negocio, un.nombre as unidad_negocio, ta.nombre as actividad, ta.activo ";
 $sql.= "FROM tipos_actividades ta ";
 $sql.= "INNER JOIN unidades_negocio un on un.cve_unidad_negocio=ta.cve_unidad_negocio ";
 $sql.= "ORDER BY ta.cve_tipo ";
@@ -136,9 +133,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtDescripcion" class="col-lg-2 control-label">Descripción</label>
                                     <div class="col-lg-10">                                        
-                                        <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" placeholder="Descripcion" value="<?php echo($ta != NULL ? $ta->getDescripcion():""); ?>">
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" id="cbxActivo" name="cbxActivo" <?php echo($ta != NULL ? ($ta->getCve_tipo() != 0 ? ($ta->getActivo() ? "checked" : "") : "checked"):""); ?>> Activo
@@ -169,7 +164,6 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                 <th>ID</th>                              
                                 <th>Unidad de negocio</th>
                                 <th>Nombre</th>
-                                <th>Descripción</th>
                                 <th>Activo</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -181,7 +175,6 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                 <td><?php echo($row['cve_tipo']);?></td>                                
                                 <td><?php echo($row['unidad_negocio']);?></td>
                                 <td><?php echo($row['actividad']);?></td>
-                                <td><?php echo($row['descripcion']);?></td>
                                 <td><?php echo($row['activo'] == 1 ? "Si":"No");?></td>
                                 <td><a href="javascript:void(0);" onclick="editar(<?php echo($row['cve_tipo']);?>, <?php echo($row['cve_unidad_negocio']);?>);"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a href="javascript:void(0);" onclick="if(confirm('¿Está realmente seguro de eliminar este registro?')){eliminar(<?php echo($row['cve_tipo']);?>, <?php echo($row['cve_unidad_negocio']);?>);}else{ return false;};"><span class="glyphicon glyphicon-erase"></span></a></td>
@@ -205,7 +198,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
             function editar(cve_tipo,cve_unidad_negocio)
             {                 
                 $("#txtCveTipo").val(cve_tipo);
-                $("#txtCveUnidadNegocio").val(cve_unidad_negocio);             
+                $("#txtCveUnidadNegocio").val(cve_unidad_negocio);
                 $("#frm_captura").submit();
             }
             
@@ -213,7 +206,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
             {
                 $("#xAccion").val("eliminar");                
                 $("#txtCveTipo").val(cve_tipo);
-                $("#txtCveUnidadNegocio").val(cve_unidad_negocio);         
+                $("#txtCveUnidadNegocio").val(cve_unidad_negocio); 
                 $("#frm_captura").submit();
             }
 
@@ -221,7 +214,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
             {
                 $("#xAccion").val("");                
                 $("#txtCveTipo").val("0");
-                $("#txtCveUnidadNegocio").val("0"); 
+                $("#txtCveUnidadNegocio").val("0");
                 $("#frm_captura").submit();
             }
         </script>
