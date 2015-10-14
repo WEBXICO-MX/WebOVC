@@ -11,7 +11,6 @@ class Actividad {
 
     private $cve_actividad;
     private $cve_tipo;
-    private $cve_unidad_negocio;
     private $nombre;
     private $descripcion;
     private $activo;
@@ -24,8 +23,8 @@ class Actividad {
         $nargs = func_num_args();
 
         switch ($nargs) {
-            case 3:
-                self::__construct1($args[0], $args[1], $args[2]);
+            case 1:
+                self::__construct1($args[0]);
                 break;
             //case 2:
             //self::__construct2($args[0], $args[1]);
@@ -33,18 +32,15 @@ class Actividad {
         }
     }
 
-    function __construct1($cveActividad, $cveTipo, $cveUnidadNegocio) {
+    function __construct1($cveActividad) {
         $this->limpiar();
         $this->cve_actividad = $cveActividad;
-        $this->cve_tipo = $cveTipo;
-        $this->cve_unidad_negocio = $cveUnidadNegocio;
         $this->cargar();
     }
 
     private function limpiar() {
         $this->cve_actividad = 0;
         $this->cve_tipo = "";
-        $this->cve_unidad_negocio = "";
         $this->nombre = "";
         $this->descripcion = "";
         $this->activo = false;
@@ -57,32 +53,30 @@ class Actividad {
 
         if (!$this->_existe) {
             $this->cve_actividad = UtilDB::getSiguienteNumero("actividades", "cve_actividad");
-            $sql = "INSERT INTO actividades VALUES($this->cve_actividad,$this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre','$this->descripcion',$this->activo)";
+            $sql = "INSERT INTO actividades VALUES($this->cve_actividad,$this->cve_tipo,'$this->nombre','$this->descripcion',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE actividades SET ";
-            $sql.= "cve_tipo = '$this->cve_tipo',";
-            $sql.= "cve_unidad_negocio = '$this->cve_unidad_negocio',";
+            $sql.= "cve_tipo = $this->cve_tipo,";
             $sql.= "nombre = '$this->nombre',";
             $sql.= "descripcion = '$this->descripcion',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
-            $sql.= " WHERE cve_actividad = $this->cve_actividad AND cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
+            $sql.= " WHERE cve_actividad = $this->cve_actividad";
             $count = UtilDB::ejecutaSQL($sql);
         }
         return $count;
     }
 
     function cargar() {
-        $sql = "SELECT * FROM actividades WHERE cve_actividad = $this->cve_actividad AND cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
+        $sql = "SELECT * FROM actividades WHERE cve_actividad = $this->cve_actividad";
         $rst = UtilDB::ejecutaConsulta($sql);
 
         foreach ($rst as $row) {
             $this->cve_actividad = $row['cve_actividad'];
             $this->cve_tipo = $row['cve_tipo'];
-            $this->cve_unidad_negocio = $row['cve_unidad_negocio'];
             $this->nombre = $row['nombre'];
             $this->descripcion = $row['descripcion'];
             $this->activo = $row['activo'];
@@ -92,7 +86,7 @@ class Actividad {
     }
 
     function borrar() {
-        $sql = "DELETE FROM actividades WHERE cve_actividad = $this->cve_actividad AND cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
+        $sql = "DELETE FROM actividades WHERE cve_actividad = $this->cve_actividad";
         $count = UtilDB::ejecutaSQL($sql);
         return $count;
     }
@@ -103,10 +97,6 @@ class Actividad {
 
     function getCve_tipo() {
         return $this->cve_tipo;
-    }
-
-    function getCve_unidad_negocio() {
-        return $this->cve_unidad_negocio;
     }
 
     function getNombre() {
@@ -131,10 +121,6 @@ class Actividad {
 
     function setCve_tipo($cve_tipo) {
         $this->cve_tipo = $cve_tipo;
-    }
-
-    function setCve_unidad_negocio($cve_unidad_negocio) {
-        $this->cve_unidad_negocio = $cve_unidad_negocio;
     }
 
     function setNombre($nombre) {
