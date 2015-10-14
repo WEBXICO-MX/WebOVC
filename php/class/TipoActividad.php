@@ -51,8 +51,7 @@ class TipoActividad {
 
         if (!$this->_existe) {
             $this->cve_tipo = UtilDB::getSiguienteNumero("tipos_actividades", "cve_tipo");
-            $sql = "INSERT INTO tipos_actividades VALUES($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre',$this->activo)";
-            echo($sql);
+            $sql = "INSERT INTO tipos_actividades VALUES ($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -63,7 +62,6 @@ class TipoActividad {
             $sql.= "nombre = '$this->nombre',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_tipo = $this->cve_tipo";
-            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
         }
         return $count;
