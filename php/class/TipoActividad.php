@@ -23,8 +23,8 @@ class TipoActividad {
         $nargs = func_num_args();
 
         switch ($nargs) {
-            case 2:
-                self::__construct1($args[0], $args[1]);
+            case 1:
+                self::__construct1($args[0]);
                 break;
             //case 2:
             //self::__construct2($args[0], $args[1]);
@@ -32,10 +32,9 @@ class TipoActividad {
         }
     }
 
-    function __construct1($cveTipo, $cveUnidadNegocio) {
+    function __construct1($cveTipo) {
         $this->limpiar();
         $this->cve_tipo = $cveTipo;
-        $this->cve_unidad_negocio = $cveUnidadNegocio;
         $this->cargar();
     }
 
@@ -55,23 +54,26 @@ class TipoActividad {
         if (!$this->_existe) {
             $this->cve_tipo = UtilDB::getSiguienteNumero("tipos_actividades", "cve_tipo");
             $sql = "INSERT INTO tipos_actividades VALUES($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre','$this->descripcion',$this->activo)";
+            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE tipos_actividades SET ";
+            $sql.= "cve_unidad_negocio = $this->cve_unidad_negocio,";
             $sql.= "nombre = '$this->nombre',";
             $sql.= "descripcion = '$this->descripcion',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
-            $sql.= " WHERE cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
+            $sql.= " WHERE cve_tipo = $this->cve_tipo";
+            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
         }
         return $count;
     }
 
     function cargar() {
-        $sql = "SELECT * FROM tipos_actividades WHERE cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
+        $sql = "SELECT * FROM tipos_actividades WHERE cve_tipo = $this->cve_tipo";
         $rst = UtilDB::ejecutaConsulta($sql);
 
         foreach ($rst as $row) {
@@ -86,7 +88,7 @@ class TipoActividad {
     }
 
     function borrar() {
-        $sql = "DELETE FROM tipos_actividades WHERE cve_tipo = $this->cve_tipo AND cve_unidad_negocio = $this->cve_unidad_negocio";
+        $sql = "DELETE FROM tipos_actividades WHERE cve_tipo = $this->cve_tipo";
         $count = UtilDB::ejecutaSQL($sql);
         return $count;
     }
