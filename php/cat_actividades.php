@@ -14,7 +14,6 @@ $count = 0;
 $xAccion = "";
 $txtCveActividad = 0;
 $txtCveTipo = 0;
-$txtCveUnidadNegocio = 0;
 $txtNombre = "";
 $txtDescripcion = "";
 $cbxActivo = 0;
@@ -24,18 +23,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $xAccion = test_input($_POST["xAccion"]);
     $txtCveActividad = (int) test_input($_POST["txtCveActividad"]);
     $txtCveTipo = (int) test_input($_POST["txtCveTipo"]);
-    $txtCveUnidadNegocio = (int) test_input($_POST["txtCveUnidadNegocio"]);
     $txtNombre = test_input($_POST["txtNombre"]);
     $txtDescripcion = test_input($_POST["txtDescripcion"]);
     $cbxActivo = isset($_POST["cbxActivo"]) ? 1 : 0;
 
     if ($txtCveActividad != 0) {
-        $a = new Actividad($txtCveActividad,$txtCveTipo,$txtCveUnidadNegocio);
+        $a = new Actividad($txtCveActividad);
     }
 
     if ($xAccion == 'grabar') {
         $a->setCve_tipo($txtCveTipo);
-        $a->setCve_unidad_negocio($txtCveUnidadNegocio);               
         $a->setNombre($txtNombre);
         $a->setDescripcion($txtDescripcion);
         $a->setActivo($cbxActivo);
@@ -64,10 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$sql = "SELECT a.cve_actividad, a.cve_tipo, a.cve_unidad_negocio, ta.nombre as tipo_actividad, un.nombre as tipo_unidad_negocio, a.nombre as actividad, a.descripcion, a.activo ";
+$sql = "SELECT a.cve_actividad, a.cve_tipo, ta.nombre as tipo_actividad, a.nombre as actividad, a.descripcion, a.activo ";
 $sql.= "FROM actividades a ";
-$sql.= "INNER JOIN tipos_actividades ta on ta.cve_tipo=a.cve_tipo and ta.cve_unidad_negocio=a.cve_unidad_negocio ";
-$sql.= "INNER JOIN unidades_negocio un on un.cve_unidad_negocio=a.cve_unidad_negocio ";
+$sql.= "INNER JOIN tipos_actividades ta on ta.cve_tipo=a.cve_tipo ";
 $sql.= "ORDER BY cve_actividad";
 
 $rst = UtilDB::ejecutaConsulta($sql);
@@ -138,21 +134,6 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                <label for="txtCveUnidadNegocio">Unidad de negocio:</label>
-                                    <select name="txtCveUnidadNegocio" id="txtCveUnidadNegocio" class="form-control" placeholder="Unidad de negocio">
-                                        <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                                        <?php
-                                        $sql2 = "SELECT * FROM unidades_negocio WHERE activo=1 ORDER BY cve_unidad_negocio";
-                                        $rst2 = UtilDB::ejecutaConsulta($sql2);
-                                        foreach ($rst2 as $row) {
-                                            echo("<option value='" . $row['cve_unidad_negocio'] . "' " . ($a->getCve_unidad_negocio() != 0 ? ($a->getCve_unidad_negocio() == $row['cve_unidad_negocio'] ? "selected" : "") : "") . ">" . $row['nombre'] . "</option>");
-                                        }
-                                        $rst2->closeCursor();
-                                        ?>
-
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="txtNombre" class="col-lg-2 control-label">Nombre</label>
                                     <div class="col-lg-10">
                                         <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombre" value="<?php echo($a != NULL ? $a->getNombre():""); ?>">                                       
@@ -191,7 +172,6 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <tr>
                                 <th>ID</th>
                                 <th>Tipo de actividad</th>
-                                <th>Unidad de negocio</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Activo</th>
@@ -204,12 +184,11 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <tr>
                                 <td><?php echo($row['cve_actividad']);?></td>
                                 <td><?php echo($row['tipo_actividad']);?></td>
-                                <td><?php echo($row['tipo_unidad_negocio']);?></td>
                                 <td><?php echo($row['actividad']);?></td>
                                 <td><?php echo($row['descripcion']);?></td>
                                 <td><?php echo($row['activo'] == 1 ? "Si":"No");?></td>
-                                <td><a href="javascript:void(0);" onclick="editar(<?php echo($row['cve_actividad']);?>, <?php echo($row['cve_tipo']);?>, <?php echo($row['cve_unidad_negocio']);?>);"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><a href="javascript:void(0);" onclick="if(confirm('¿Está realmente seguro de eliminar este registro?')){eliminar(<?php echo($row['cve_actividad']);?>,<?php echo($row['cve_tipo']);?>, <?php echo($row['cve_unidad_negocio']);?>);}else{ return false;};"><span class="glyphicon glyphicon-erase"></span></a></td>
+                                <td><a href="javascript:void(0);" onclick="editar(<?php echo($row['cve_actividad']);?>);"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a href="javascript:void(0);" onclick="if(confirm('¿Está realmente seguro de eliminar este registro?')){eliminar(<?php echo($row['cve_actividad']);?>);}else{ return false;};"><span class="glyphicon glyphicon-erase"></span></a></td>
                             </tr>
                             <?php } $rst->closeCursor();?>
                         </tbody>
@@ -227,20 +206,16 @@ $rst = UtilDB::ejecutaConsulta($sql);
                 $("#frm_captura").submit();
             }
             
-            function editar(cve_actividad,cve_tipo,cve_unidad_negocio)
+            function editar(cve_actividad)
             {   
                 $("#txtCveActividad").val(cve_actividad);
-                $("#txtCveTipo").val(cve_tipo);
-                $("#txtCveUnidadNegocio").val(cve_unidad_negocio);             
                 $("#frm_captura").submit();
             }
             
-            function eliminar(cve_actividad,cve_tipo,cve_unidad_negocio)
+            function eliminar(cve_actividad)
             {
                 $("#xAccion").val("eliminar");
                 $("#txtCveActividad").val(cve_actividad);
-                $("#txtCveTipo").val(cve_tipo);
-                $("#txtCveUnidadNegocio").val(cve_unidad_negocio);         
                 $("#frm_captura").submit();
             }
 
@@ -249,7 +224,6 @@ $rst = UtilDB::ejecutaConsulta($sql);
                 $("#xAccion").val("");
                 $("#txtCveActividad").val("0");
                 $("#txtCveTipo").val("0");
-                $("#txtCveUnidadNegocio").val("0"); 
                 $("#frm_captura").submit();
             }
         </script>
