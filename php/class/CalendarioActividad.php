@@ -11,8 +11,6 @@ class CalendarioActividad {
 
     private $cve_calendario;
     private $cve_actividad;
-    private $cve_tipo;
-    private $cve_unidad_negocio;
     private $fecha_inicio;
     private $fecha_fin;
     private $lugar;
@@ -52,8 +50,6 @@ class CalendarioActividad {
 
         $this->cve_calendario = 0;
         $this->cve_actividad = 0;
-        $this->cve_tipo = 0;
-        $this->cve_unidad_negocio = 0;
         $this->fecha_inicio = NULL;
         $this->fecha_fin = NULL;
         $this->lugar = "";
@@ -74,7 +70,7 @@ class CalendarioActividad {
 
         if (!$this->_existe) {
             $this->cve_calendario = UtilDB::getSiguienteNumero("calendario_actividades", "cve_calendario");
-            $sql = "INSERT INTO calendario_actividades VALUES($this->cve_calendario,$this->cve_actividad,$this->cve_tipo,$this->cve_unidad_negocio,'$this->fecha_inicio','$this->fecha_fin','$this->lugar',$this->cve_estado,$this->cve_municipio,'$this->imagen_portada',$this->precio,$this->cupo_maximo,'$this->observaciones',NOW(),$this->activo)";
+            $sql = "INSERT INTO calendario_actividades VALUES($this->cve_calendario,$this->cve_actividad,'$this->fecha_inicio','$this->fecha_fin','$this->lugar',$this->cve_estado,$this->cve_municipio,'$this->imagen_portada',$this->precio,$this->cupo_maximo,'$this->observaciones',NOW(),$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -82,8 +78,6 @@ class CalendarioActividad {
         } else {
             $sql = "UPDATE calendario_actividades SET ";
             $sql.= "cve_actividad = $this->cve_actividad,";
-            $sql.= "cve_tipo = $this->cve_tipo,";
-            $sql.= "cve_unidad_negocio = $this->cve_unidad_negocio,";
             $sql.= "fecha_inicio = '$this->fecha_inicio',";
             $sql.= "fecha_fin = '$this->fecha_fin',";
             $sql.= "lugar = '$this->lugar',";
@@ -107,8 +101,6 @@ class CalendarioActividad {
         foreach ($rst as $row) {
             $this->cve_calendario = $row['cve_calendario'];
             $this->cve_actividad = $row['cve_actividad'];
-            $this->cve_tipo = $row['cve_tipo'];
-            $this->cve_unidad_negocio = $row['cve_unidad_negocio'];
             $this->fecha_inicio = $row['fecha_inicio'];
             $this->fecha_fin = $row['fecha_fin'];
             $this->lugar = $row['lugar'];
@@ -137,14 +129,6 @@ class CalendarioActividad {
 
     function getCve_actividad() {
         return $this->cve_actividad;
-    }
-
-    function getCve_tipo() {
-        return $this->cve_tipo;
-    }
-
-    function getCve_unidad_negocio() {
-        return $this->cve_unidad_negocio;
     }
 
     function getFecha_inicio() {
@@ -201,14 +185,6 @@ class CalendarioActividad {
 
     function setCve_actividad($cve_actividad) {
         $this->cve_actividad = $cve_actividad;
-    }
-
-    function setCve_tipo($cve_tipo) {
-        $this->cve_tipo = $cve_tipo;
-    }
-
-    function setCve_unidad_negocio($cve_unidad_negocio) {
-        $this->cve_unidad_negocio = $cve_unidad_negocio;
     }
 
     function setFecha_inicio($fecha_inicio) {
