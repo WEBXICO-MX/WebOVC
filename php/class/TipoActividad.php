@@ -53,6 +53,7 @@ class TipoActividad {
         $count = 0;
 
         if (!$this->_existe) {
+            $this->cve_tipo = UtilDB::getSiguienteNumero("tipos_actividades", "cve_tipo");
             $sql = "INSERT INTO tipos_actividades VALUES($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre','$this->descripcion',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
