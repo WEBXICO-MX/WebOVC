@@ -1,6 +1,7 @@
 <?php
 require_once 'class/CalendarioActividad.php';
 require_once 'lib/Utilerias.php';
+
 //session_start();
 
 /* if (!isset($_SESSION['cve_usuario'])) 
@@ -30,11 +31,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $xAccion = test_input($_POST["xAccion"]);
     $txtCveCalendario = (int) test_input($_POST["txtCveCalendario"]);
     $txtCveActividad = (int) test_input($_POST["txtCveActividad"]);
-    $txtFechaInicio = test_input($_POST["FechaInicio"]);
-    $txtFechaFin = test_input($_POST["txtFechaFin"]);
+    
+    $fi = strtotime(str_replace('/', '-', (test_input($_POST["txtFechaInicio"]) . " " . "00:00:00")));
+    $ff = strtotime(str_replace('/', '-', (test_input($_POST["txtFechaFin"]) . " " . "23:59:59")));
+    $txtFechaInicio = date('Y-m-d H:i:s', $fi);
+    $txtFechaFin = date('Y-m-d H:i:s', $ff);
+
     $txtLugar = test_input($_POST["txtLugar"]);
     $txtEstado = test_input($_POST["txtEstado"]);
-    $txtMunicipio = test_input($_POST["txtMunicipio"]);
+    $txtMunicipio = isset($_POST["txtMunicipio"]) ? test_input($_POST["txtMunicipio"]):"";
     $txtImagenPortada = test_input($_POST["txtImagenPortada"]);
     $txtPrecio = test_input($_POST["txtPrecio"]);
     $txtCupoMaximo = test_input($_POST["txtCupoMaximo"]);
@@ -82,12 +87,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$sql = "SELECT ca.cve_calendario,a.nombre AS actividad,ca.fecha_inicio,ca.fecha_fin,ca.lugar,e.nombre AS estado,m.nombre AS municipio,ca.imagen_portada,ca.precio,ca.cupo_maximo,ca.observaciones,ca.fecha_alta,ca.activo ";
+/*$sql = "SELECT ca.cve_calendario,a.nombre AS actividad,ca.fecha_inicio,ca.fecha_fin,ca.lugar,e.nombre AS estado,m.nombre AS municipio,ca.imagen_portada,ca.precio,ca.cupo_maximo,ca.observaciones,ca.fecha_alta,ca.activo ";
 $sql .= "FROM calendario_actividades AS ca ";
 $sql .= "INNER JOIN actividades AS a ON a.cve_actividad = ca.cve_actividad ";
 $sql .= "INNER JOIN estados AS e ON e.cve_estado = ca.cve_estado ";
-$sql .= "INNER JOIN municipios AS m ON m.cve_municipio = ca.cve_municipio AND m.cve_estado = ca.cve_estado";
+$sql .= "INNER JOIN municipios AS m ON m.cve_municipio = ca.cve_municipio AND m.cve_estado = ca.cve_estado";*/
 
+$sql = "SELECT ca.cve_calendario, a.nombre AS actividad, ca.imagen_portada ,ca.activo FROM calendario_actividades AS ca INNER JOIN actividades AS a ON a.cve_actividad = ca.cve_actividad ORDER BY ca.fecha_inicio DESC";
 $rst = UtilDB::ejecutaConsulta($sql);
 ?>
 <!DOCTYPE html>
@@ -96,6 +102,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
         <title>Calendario actividades | Admin</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../js/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet"/>
         <link href="../twbs/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
     </head>
     <body>
@@ -133,8 +140,8 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <fieldset>
                                 <legend>Captura</legend>
                                 <div class="form-group">
-                                    <label for="txtCveCalendario" class="col-lg-2 control-label">ID Calendario actividad</label>
-                                    <div class="col-lg-10">
+                                    <label for="txtCveCalendario" class="col-lg-4 control-label">ID</label>
+                                    <div class="col-lg-8">
                                         <input type="hidden" id="xAccion" name="xAccion" value="0">
                                         <input type="text" class="form-control" id="txtCveCalendario" name="txtCveCalendario" placeholder="ID Calendario actividades" readonly value="<?php echo($ca != NULL ? $ca->getCve_calendario():""); ?>">
                                     </div>
@@ -156,17 +163,35 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtFechaInicio" class="col-lg-2 control-label">Fecha inicio</label>
-                                    <div class="col-lg-10">                                        
-                                        <input type="text" class="form-control" id="txtFechaInicio" name="txtFechaInicio" placeholder="Fecha inicio" value="<?php echo($ca != NULL ? $ca->getFecha_inicio():""); ?>">
+                                    <div class="date-form">
+                                        <div class="form-horizontal">
+                                            <div class="control-group">
+                                                <label for="txtFechaFin">Fecha inicio</label>
+                                                <div class="controls">
+                                                    <div class="input-group">
+                                                        <input id="txtFechaInicio" name="txtFechaInicio" type="text" class="date-picker form-control"  value="<?php echo(substr(str_replace('-', '/', $ca->getFecha_inicio()), 0, 10)); ?>"/>
+                                                        <label for="txtFechaInicio" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label for="txtFechaFin" class="col-lg-2 control-label">Fecha fin</label>
-                                    <div class="col-lg-10">                                        
-                                        <input type="text" class="form-control" id="txtFechaFin" name="txtFechaFin" placeholder="Fecha fin" value="<?php echo($ca != NULL ? $ca->getFecha_fin():""); ?>">
+                               </div>
+                                <div class="form-group">
+                                    <div class="date-form">
+                                        <div class="form-horizontal">
+                                            <div class="control-group">
+                                                <label for="txtFechaFin">Fecha fin</label>
+                                                <div class="controls">
+                                                    <div class="input-group">
+                                                        <input id="txtFechaFin" name="txtFechaFin" type="text" class="date-picker form-control"  value="<?php echo(substr(str_replace('-', '/', $ca->getFecha_fin()), 0, 10)); ?>"/>
+                                                        <label for="txtFechaFin" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                               </div>
                                 <div class="form-group">
                                     <label for="txtLugar" class="col-lg-2 control-label">Lugar</label>
                                     <div class="col-lg-10">                                        
@@ -193,12 +218,12 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                 <label for="txtMunicipio">Municipio:</label>
                                 <select name="txtMunicipio" id="txtMunicipio" class="form-control" placeholder="Municipio" disabled>
                                         <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
-                                    </select>
+                                </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="txtImagenPortada" class="col-lg-2 control-label">Imagen portada</label>
                                     <div class="col-lg-10">                                        
-                                        <input type="text" class="form-control" id="txtImagenPortada" name="txtImagenPortada" placeholder="Imagen portada" value="<?php echo($ca != NULL ? $ca->getImagen_portada():""); ?>">
+                                        <input type="text" class="form-control" id="txtImagenPortada" name="txtImagenPortada" placeholder="Imagen portada" value="<?php echo($ca != NULL ? $ca->getImagen_portada():""); ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -214,8 +239,8 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtObservaciones" class="col-lg-2 control-label">Observaciones</label>
-                                    <div class="col-lg-10">                                        
+                                    <label for="txtObservaciones" class="col-lg-4 control-label">Observaciones</label>
+                                    <div class="col-lg-8">                                        
                                         <input type="text" class="form-control" id="txtObservaciones" name="txtObservaciones" placeholder="Observaciones" value="<?php echo($ca != NULL ? $ca->getObservaciones():""); ?>">
                                     </div>
                                 </div>
@@ -240,6 +265,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                 </div>
             </div>
             <?php if($rst->rowCount() > 0){?>
+            <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="page-header">
                     <h1 id="tables">Listado</h1>
@@ -250,16 +276,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <tr>
                                 <th>ID</th>
                                 <th>Actividad</th>
-                                <th>Fecha inicio</th>
-                                <th>Fecha fin</th>
-                                <th>Lugar</th>
-                                <th>Estado</th>
-                                <th>Municipio</th>
                                 <th>Imagen portada</th>
-                                <th>Precio</th>
-                                <th>Cupo máximo</th>
-                                <th>Observaciones</th>
-                                <th>Fecha alta</th>
                                 <th>Activo</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -269,17 +286,8 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <?php foreach ($rst as $row){?>
                             <tr>
                                 <td><?php echo($row['cve_calendario']);?></td>
-                                <td><?php echo($row['actividad']);?></td>
-                                <td><?php echo($row['fecha_inicio']);?></td>
-                                <td><?php echo($row['fecha_fin']);?></td>
-                                <td><?php echo($row['lugar']);?></td>
-                                <td><?php echo($row['estado']);?></td>
-                                <td><?php echo($row['municipio']);?></td>
-                                <td><?php echo($row['imagen_portada']);?></td>
-                                <td><?php echo($row['precio']);?></td>
-                                <td><?php echo($row['cupo_maximo']);?></td>
-                                <td><?php echo($row['observaciones']);?></td>
-                                <td><?php echo($row['fecha_alta']);?></td>
+                                <td><a href="javascript:void(0);" data-toggle="modal" data-remote="cat_calendario_actividades_id.php?id=<?php echo($row['cve_calendario']); ?>" data-target="#myModal"><?php echo($row['actividad']);?></a></td>
+                                <th><?php echo($row['imagen_portada'] != "" ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['actividad']) . "\" title=\"" . $row['actividad'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['imagen_portada'] . "' alt='" . $row['actividad'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/><br/><br/><a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_img.php?xCveCalendario=" . $row['cve_calendario'] ."\" href=\"javascript:void(0);\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_img.php?xCveCalendario=" . $row['cve_calendario'] . "\" href=\"javascript:void(0);\">Subir imagen</a>"); ?></th>
                                 <td><?php echo($row['activo'] == 1 ? "Si":"No");?></td>
                                 <td><a href="javascript:void(0);" onclick="editar(<?php echo($row['cve_calendario']);?>);"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a href="javascript:void(0);" onclick="if(confirm('¿Está realmente seguro de eliminar este registro?')){eliminar(<?php echo($row['cve_calendario']);?>);}else{ return false;};"><span class="glyphicon glyphicon-erase"></span></a></td>
@@ -289,11 +297,44 @@ $rst = UtilDB::ejecutaConsulta($sql);
                     </table> 
                 </div>
             </div>
+            </div>
             <?php }?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" ria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="../js/jQuery/jquery-1.11.3.min.js"></script>
+        <script src="../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+        <script src="../js/jquery-ui-1.11.4/jquery.ui.datepicker-es-MX.js"></script>
         <script src="../twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
         <script>
+            
+            $(document).ready(function () {
+
+                $(".date-picker").datepicker({yearRange: "-0:+10", changeMonth: true, changeYear: true});
+                $.datepicker.setDefaults($.datepicker.regional[ "es-MX" ]);
+                
+                $('[data-toggle="popover"]').popover({placement: 'top', html: true, trigger: 'click hover'});
+
+                $('body').on('hidden.bs.modal', '.modal', function () {
+                    $(this).removeData('bs.modal');
+                });
+                
+                $("#txtEstado").change(function(){
+                    $("#txtMunicipio").prop("disabled",true);
+                    $("#txtMunicipio").html("");
+                    var op = this.value;
+                    $("#txtMunicipio").load("cat_calendario_actividades_ajax.php",{"xAccion":"getMunicipios","xCveEstado":op},function(){ $("#txtMunicipio").prop("disabled",false); });
+                });
+
+            });
+            
             function grabar()
             {
                 $("#xAccion").val("grabar");
@@ -318,6 +359,19 @@ $rst = UtilDB::ejecutaConsulta($sql);
                 $("#xAccion").val("");
                 $("#txtCveCalendario").val("0");
                 $("#frm_captura").submit();
+            }
+            
+            function subir()
+            {
+                if ($("#fileToUpload").val() !== "")
+                {
+                    $("#xAccion2").val("upload");
+                    $("#frmUpload").submit();
+                }
+                else
+                {
+                    alert("No ha seleccionado un archivo para subir.");
+                }
             }
         </script>
     </body>
