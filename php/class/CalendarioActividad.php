@@ -70,7 +70,7 @@ class CalendarioActividad {
 
         if (!$this->_existe) {
             $this->cve_calendario = UtilDB::getSiguienteNumero("calendario_actividades", "cve_calendario");
-            $sql = "INSERT INTO calendario_actividades VALUES($this->cve_calendario,$this->cve_actividad,'$this->fecha_inicio','$this->fecha_fin','$this->lugar',$this->cve_estado,$this->cve_municipio,'$this->imagen_portada',$this->precio,$this->cupo_maximo,'$this->observaciones',NOW(),$this->activo)";
+            $sql = "INSERT INTO calendario_actividades VALUES($this->cve_calendario,$this->cve_actividad,'$this->fecha_inicio','$this->fecha_fin','$this->lugar',$this->cve_estado,$this->cve_municipio,NULL,$this->precio,$this->cupo_maximo,'$this->observaciones',NOW(),$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -83,7 +83,7 @@ class CalendarioActividad {
             $sql.= "lugar = '$this->lugar',";
             $sql.= "cve_estado = $this->cve_estado,";
             $sql.= "cve_municipio = $this->cve_municipio,";
-            $sql.= "imagen_portada = '$this->imagen_portada',";
+            //$sql.= "imagen_portada = '$this->imagen_portada',";
             $sql.= "precio = $this->precio,";
             $sql.= "cupo_maximo = $this->cupo_maximo,";
             $sql.= "observaciones = '$this->observaciones',";
