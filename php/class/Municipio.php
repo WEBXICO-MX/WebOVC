@@ -72,7 +72,7 @@ class Municipio {
 
         foreach ($rst as $row) {
             $this->cve_estado = $row['cve_estado'];
-            $this->cve_estado = $row['municipio'];
+            $this->cve_estado = $row['cve_municipio'];
             $this->nombre = $row['nombre'];
             $this->activo = $row['activo'];
             $this->_existe = true;
