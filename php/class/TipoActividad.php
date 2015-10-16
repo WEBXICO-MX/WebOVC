@@ -6,6 +6,7 @@
  * @see {@link http://webxico.blogspot.mx/}
  */
 require_once 'UtilDB.php';
+require_once 'UnidadNegocio.php';
 
 class TipoActividad {
             
