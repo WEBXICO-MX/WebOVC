@@ -8,8 +8,11 @@
 require_once 'UtilDB.php';
 
 class TipoActividad {
-
+            
     private $cve_tipo;
+    /**
+    * @var UnidadNegocio $cve_unidad_negocio Tipo UnidadNegocio
+    */ 
     private $cve_unidad_negocio;
     private $nombre;
     private $activo;
@@ -39,7 +42,7 @@ class TipoActividad {
 
     private function limpiar() {
         $this->cve_tipo = 0;
-        $this->cve_unidad_negocio = 0;
+        $this->cve_unidad_negocio = NULL;
         $this->nombre = "";
         $this->activo = false;
         $this->_existe = false;
@@ -51,14 +54,14 @@ class TipoActividad {
 
         if (!$this->_existe) {
             $this->cve_tipo = UtilDB::getSiguienteNumero("tipos_actividades", "cve_tipo");
-            $sql = "INSERT INTO tipos_actividades VALUES ($this->cve_tipo,$this->cve_unidad_negocio,'$this->nombre',$this->activo)";
+            $sql = "INSERT INTO tipos_actividades VALUES ($this->cve_tipo,".$this->cve_unidad_negocio->getCve_unidad_negocio().",'$this->nombre',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE tipos_actividades SET ";
-            $sql.= "cve_unidad_negocio = $this->cve_unidad_negocio,";
+            $sql.= "cve_unidad_negocio = ".$this->cve_unidad_negocio->getCve_unidad_negocio().",";
             $sql.= "nombre = '$this->nombre',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_tipo = $this->cve_tipo";
@@ -73,7 +76,7 @@ class TipoActividad {
 
         foreach ($rst as $row) {
             $this->cve_tipo = $row['cve_tipo'];
-            $this->cve_unidad_negocio = $row['cve_unidad_negocio'];
+            $this->cve_unidad_negocio = new UnidadNegocio($row['cve_unidad_negocio']);
             $this->nombre = $row['nombre'];
             $this->activo = $row['activo'];
             $this->_existe = true;
@@ -90,7 +93,9 @@ class TipoActividad {
     function getCve_tipo() {
         return $this->cve_tipo;
     }
-
+    /**
+    * @return UnidadNegocio Devuelve objeto de la clase UnidadNegocio
+    */
     function getCve_unidad_negocio() {
         return $this->cve_unidad_negocio;
     }
@@ -110,7 +115,12 @@ class TipoActividad {
     function setCve_tipo($cve_tipo) {
         $this->cve_tipo = $cve_tipo;
     }
-
+     /**
+     * Establece la unidad de negocio del tipo de actividad.
+     *
+     * @param UnidadNegocio $cve_unidad_negocio Objeto de la clase UnidadNegocio
+     *
+     */
     function setCve_unidad_negocio($cve_unidad_negocio) {
         $this->cve_unidad_negocio = $cve_unidad_negocio;
     }
