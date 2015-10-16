@@ -10,11 +10,16 @@ require_once 'UtilDB.php';
 class CalendarioActividad {
 
     private $cve_calendario;
+    /**
+    * @var Actividad $cve_actividad Tipo Actividad
+    */
     private $cve_actividad;
     private $fecha_inicio;
     private $fecha_fin;
     private $lugar;
-    private $cve_estado;
+    /**
+    * @var Municipio $cve_municipio Tipo Municipio
+    */
     private $cve_municipio;
     private $imagen_portada;
     private $precio;
@@ -49,12 +54,11 @@ class CalendarioActividad {
     private function limpiar() {
 
         $this->cve_calendario = 0;
-        $this->cve_actividad = 0;
+        $this->cve_actividad = NULL;
         $this->fecha_inicio = NULL;
         $this->fecha_fin = NULL;
         $this->lugar = "";
-        $this->cve_estado = 0;
-        $this->cve_municipio = 0;
+        $this->cve_municipio = NULL;
         $this->imagen_portada = "";
         $this->precio = 0.0;
         $this->cupo_maximo = 0;
@@ -70,19 +74,19 @@ class CalendarioActividad {
 
         if (!$this->_existe) {
             $this->cve_calendario = UtilDB::getSiguienteNumero("calendario_actividades", "cve_calendario");
-            $sql = "INSERT INTO calendario_actividades VALUES($this->cve_calendario,$this->cve_actividad,'$this->fecha_inicio','$this->fecha_fin','$this->lugar',$this->cve_estado,$this->cve_municipio,NULL,$this->precio,$this->cupo_maximo,'$this->observaciones',NOW(),$this->activo)";
+            $sql = "INSERT INTO calendario_actividades VALUES($this->cve_calendario,".$this->cve_actividad->getCve_actividad().",'$this->fecha_inicio','$this->fecha_fin','$this->lugar',".$this->cve_municipio->getCve_estado()->getCve_estado().",".$this->cve_municipio->getCve_municipio().",NULL,$this->precio,$this->cupo_maximo,'$this->observaciones',NOW(),$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE calendario_actividades SET ";
-            $sql.= "cve_actividad = $this->cve_actividad,";
+            $sql.= "cve_actividad = ".$this->cve_actividad->getCve_actividad().",";
             $sql.= "fecha_inicio = '$this->fecha_inicio',";
             $sql.= "fecha_fin = '$this->fecha_fin',";
             $sql.= "lugar = '$this->lugar',";
-            $sql.= "cve_estado = $this->cve_estado,";
-            $sql.= "cve_municipio = $this->cve_municipio,";
+            $sql.= "cve_estado = ".$this->cve_municipio->getCve_estado()->getCve_estado().",";
+            $sql.= "cve_municipio = ".$this->cve_municipio->getCve_municipio().",";
             //$sql.= "imagen_portada = '$this->imagen_portada',";
             $sql.= "precio = $this->precio,";
             $sql.= "cupo_maximo = $this->cupo_maximo,";
@@ -100,12 +104,11 @@ class CalendarioActividad {
 
         foreach ($rst as $row) {
             $this->cve_calendario = $row['cve_calendario'];
-            $this->cve_actividad = $row['cve_actividad'];
+            $this->cve_actividad = new Actividad($row['cve_actividad']);
             $this->fecha_inicio = $row['fecha_inicio'];
             $this->fecha_fin = $row['fecha_fin'];
             $this->lugar = $row['lugar'];
-            $this->cve_estado = $row['cve_estado'];
-            $this->cve_municipio = $row['cve_municipio'];
+            $this->cve_municipio = new Municipio($row['cve_estado'],$row['cve_municipio']);
             $this->imagen_portada = $row['imagen_portada'];
             $this->precio = $row['precio'];
             $this->cupo_maximo = $row['cupo_maximo'];
@@ -127,6 +130,9 @@ class CalendarioActividad {
         return $this->cve_calendario;
     }
 
+    /**
+    * @return Actividad Devuelve tipo Actividad
+    */
     function getCve_actividad() {
         return $this->cve_actividad;
     }
@@ -142,11 +148,10 @@ class CalendarioActividad {
     function getLugar() {
         return $this->lugar;
     }
-
-    function getCve_estado() {
-        return $this->cve_estado;
-    }
-
+    
+    /**
+    * @return Municipio Devuelve tipo Municipio
+    */
     function getCve_municipio() {
         return $this->cve_municipio;
     }
@@ -183,6 +188,12 @@ class CalendarioActividad {
         $this->cve_calendario = $cve_calendario;
     }
 
+    /**
+     * Establece la actividad en el calendario.
+     *
+     * @param Actividad $cve_actividad Objeto tipo Actividad
+     *
+     */
     function setCve_actividad($cve_actividad) {
         $this->cve_actividad = $cve_actividad;
     }
@@ -198,11 +209,13 @@ class CalendarioActividad {
     function setLugar($lugar) {
         $this->lugar = $lugar;
     }
-
-    function setCve_estado($cve_estado) {
-        $this->cve_estado = $cve_estado;
-    }
-
+    
+    /**
+     * Establece el municipio donde se llevara a cabo la actividad del calendario.
+     *
+     * @param Municipio $cve_municipio Objeto de la clase Municipio
+     *
+     */
     function setCve_municipio($cve_municipio) {
         $this->cve_municipio = $cve_municipio;
     }
