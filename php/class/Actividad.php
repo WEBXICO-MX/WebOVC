@@ -10,6 +10,9 @@ require_once 'UtilDB.php';
 class Actividad {
 
     private $cve_actividad;
+    /**
+    * @var TipoActividad $cve_tipo Tipo TipoActividad
+    */
     private $cve_tipo;
     private $nombre;
     private $descripcion;
@@ -40,7 +43,7 @@ class Actividad {
 
     private function limpiar() {
         $this->cve_actividad = 0;
-        $this->cve_tipo = "";
+        $this->cve_tipo = NULL;
         $this->nombre = "";
         $this->descripcion = "";
         $this->activo = false;
@@ -53,14 +56,14 @@ class Actividad {
 
         if (!$this->_existe) {
             $this->cve_actividad = UtilDB::getSiguienteNumero("actividades", "cve_actividad");
-            $sql = "INSERT INTO actividades VALUES($this->cve_actividad,$this->cve_tipo,'$this->nombre','$this->descripcion',$this->activo)";
+            $sql = "INSERT INTO actividades VALUES($this->cve_actividad,".$this->cve_tipo->getCve_tipo().",'$this->nombre','$this->descripcion',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE actividades SET ";
-            $sql.= "cve_tipo = $this->cve_tipo,";
+            $sql.= "cve_tipo = ".$this->cve_tipo->getCve_tipo().",";
             $sql.= "nombre = '$this->nombre',";
             $sql.= "descripcion = '$this->descripcion',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
@@ -76,7 +79,7 @@ class Actividad {
 
         foreach ($rst as $row) {
             $this->cve_actividad = $row['cve_actividad'];
-            $this->cve_tipo = $row['cve_tipo'];
+            $this->cve_tipo = new TipoActividad($row['cve_tipo']);
             $this->nombre = $row['nombre'];
             $this->descripcion = $row['descripcion'];
             $this->activo = $row['activo'];
@@ -94,7 +97,9 @@ class Actividad {
     function getCve_actividad() {
         return $this->cve_actividad;
     }
-
+    /**
+     * @return TipoActividad Devuelve objeto tipo TipoActividad
+    */        
     function getCve_tipo() {
         return $this->cve_tipo;
     }
@@ -118,7 +123,12 @@ class Actividad {
     function setCve_actividad($cve_actividad) {
         $this->cve_actividad = $cve_actividad;
     }
-
+    /**
+     * Establece el tipo de la actividad.
+     *
+     * @param TipoActividad $cve_tipo Objeto tipo TipoActividad
+     *
+     */
     function setCve_tipo($cve_tipo) {
         $this->cve_tipo = $cve_tipo;
     }
