@@ -6,6 +6,7 @@
  * @see {@link http://webxico.blogspot.mx/}
  */
 require_once 'UtilDB.php';
+require_once 'Estado.php';
 
 class Municipio {
     /**
@@ -74,7 +75,7 @@ class Municipio {
 
         foreach ($rst as $row) {
             $this->cve_estado = new Estado($row['cve_estado']);
-            $this->cve_estado = $row['cve_municipio'];
+            $this->cve_municipio = $row['cve_municipio'];
             $this->nombre = $row['nombre'];
             $this->activo = $row['activo'];
             $this->_existe = true;
