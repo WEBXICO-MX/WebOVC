@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
                                 <img src="../img/320x150_6.jpg" alt="">
@@ -176,7 +176,12 @@
         <div class="container">
 
             <hr>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="google_maps" style="width: 500px; height: 500px;">Google Maps</div>
+                </div>
+            </div>
+            <hr>
             <!-- Footer -->
             <footer>
                 <div class="row">
@@ -189,7 +194,25 @@
 
         </div>
         <!-- /.container -->
-        <script src="../js/jQuery/jquery-1.11.3.min.js"></script>
-        <script src="../twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpdw9gyXrQvIvyLrVi9FneyumQOE8_9CA&sensor=true"></script>
+        <script src="js/jQuery/jquery-1.11.3.min.js"></script>
+        <script src="twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script>
+            var map;
+            function initialize()
+            {
+                var coordenadas = new google.maps.LatLng(18.023869, -92.920003);
+                var opt = {zoom: 16, center: coordenadas, mapTypeId: google.maps.MapTypeId.ROADMAP};
+                var map = new google.maps.Map(document.getElementById('google_maps'), opt);
+                var marker = new google.maps.Marker({position: coordenadas, animation: google.maps.Animation.DROP, icon: "../img/Map-Marker-Push-Pin-1-Left-Azure-icon.png"});
+                marker.setMap(map);
+                var text = "<h1>Grupo HISA</h1><ul><li>Col. Jose Maria Pino Suarez</li><li>Av. Ramon Mendoza No. 412-04</li><li>C.P. 86029</li><li>Villahermosa, Tabasco</li><li>Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</li></ul>";
+                var info = new google.maps.InfoWindow({content: text});
+                google.maps.event.addListener(marker, 'click', function () {
+                    info.open(map, marker);
+                });
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
     </body>
 </html>
