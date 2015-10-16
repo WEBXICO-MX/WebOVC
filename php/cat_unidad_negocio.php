@@ -56,9 +56,10 @@ $rst = UtilDB::ejecutaConsulta($sql);
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Unidades de negocio | Admin</title>
+        <title>Grupo HISA | Unidades de negocio</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
         <link href="../twbs/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
     </head>
     <body>

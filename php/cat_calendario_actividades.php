@@ -100,8 +100,9 @@ $rst = UtilDB::ejecutaConsulta($sql);
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Calendario actividades | Admin</title>
+        <title>Grupos HISA | Calendario actividades</title>
         <meta charset="utf-8">
+        <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../js/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet"/>
         <link href="../twbs/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
