@@ -1,5 +1,6 @@
 <?php
 require_once 'class/TipoActividad.php';
+require_once 'class/UnidadNegocio.php';
 require_once 'lib/Utilerias.php';
 //session_start();
 
@@ -30,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($xAccion == 'grabar') {
-        $ta->setCve_unidad_negocio($txtCveUnidadNegocio);
+        $ta->setCve_unidad_negocio(new UnidadNegocio($txtCveUnidadNegocio));
         $ta->setNombre($txtNombre);
         $ta->setActivo($cbxActivo);
         $count = $ta->grabar();
@@ -119,7 +120,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                             $sql2 = "SELECT * FROM unidades_negocio WHERE activo=1 ORDER BY cve_unidad_negocio";
                                             $rst2 = UtilDB::ejecutaConsulta($sql2);
                                             foreach ($rst2 as $row) {
-                                                echo("<option value='" . $row['cve_unidad_negocio'] . "' " . ($ta != NULL ? ($ta->getCve_unidad_negocio() != 0 ? ($ta->getCve_unidad_negocio() == $row['cve_unidad_negocio'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
+                                                echo("<option value='" . $row['cve_unidad_negocio'] . "' " . ($ta != NULL ? ($ta->getCve_unidad_negocio() != NULL ? ($ta->getCve_unidad_negocio()->getCve_unidad_negocio() == $row['cve_unidad_negocio'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
                                             }
                                             $rst2->closeCursor();
                                             ?>
