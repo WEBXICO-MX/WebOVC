@@ -1,5 +1,6 @@
 <?php
 require_once 'class/Actividad.php';
+require_once 'class/TipoActividad.php';
 require_once 'lib/Utilerias.php';
 //session_start();
 
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($xAccion == 'grabar') {
-        $a->setCve_tipo($txtCveTipo);
+        $a->setCve_tipo(new TipoActividad($txtCveTipo));
         $a->setNombre($txtNombre);
         $a->setDescripcion($txtDescripcion);
         $a->setActivo($cbxActivo);
@@ -126,7 +127,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                         $sql2 = "SELECT * FROM tipos_actividades where activo=1 ORDER BY cve_tipo";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                                         foreach ($rst2 as $row) {
-                                            echo("<option value='" . $row['cve_tipo'] . "' " . ($a != NULL ? ($a->getCve_actividad() != 0 ? ($a->getCve_tipo() == $row['cve_tipo'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
+                                            echo("<option value='" . $row['cve_tipo'] . "' " . ($a != NULL ? ($a->getCve_tipo() != NULL ? ($a->getCve_tipo()->getCve_tipo() == $row['cve_tipo'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
                                         }
                                         $rst2->closeCursor();
                                         ?>
