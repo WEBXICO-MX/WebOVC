@@ -1,65 +1,171 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Oracio Valdez Corporation | Inicio</title>
+        <title>Grupo HISA | Home</title>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="twbs/bootswatch/themes/flatly/bootstrap.min.css" rel="stylesheet"/>
+        <meta name="description" content="">
+        <meta name="author" content="Roberto Eder Weiss Juárez">
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+        <link href="twbs/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/heroic-features.css" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
     <body>
-
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Oracio Valdez Corporation</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.php">Grupo HISA</a>
                 </div>
-                <div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Inicio</a></li>
-                        <li><a href="#">Page 1</a></li>
-                        <li><a href="#">Page 2</a></li>
-                        <li><a href="#">Page 3</a></li>
+                        <li>
+                            <a href="php/quienes_somos.php">¿Quiénes somos?</a>
+                        </li>
+                        <li>
+                            <a href="php/clientes.php">Clientes</a>
+                        </li>
+                        <li>
+                            <a href="#">Lista de cursos y diplomados</a>
+                        </li>
                     </ul>
                 </div>
+                <!-- /.navbar-collapse -->
             </div>
+            <!-- /.container -->
         </nav>
 
+        <!-- Page Content -->
         <div class="container">
-            <div class="jumbotron">
-                <h1>My first Bootstrap website!</h1>      
-                <p>This page will grow as we add more and more components from Bootstrap...</p>      
-                <a href="#" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-search"></span> Search</a>
-            </div>
 
+            <!-- Jumbotron Header -->
+            <header class="jumbotron hero-spacer">
+                <h1>Grupo HISA</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+                <p><a class="btn btn-primary btn-large">Call to action!</a>
+                </p>
+            </header>
+
+            <hr>
+
+            <!-- Title -->
             <div class="row">
-                <div class="col-md-3">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="col-lg-12">
+                    <h3>Latest Features</h3>
                 </div>
-                <div class="col-md-3"> 
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <div class="col-md-3"> 
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
-                <div class="col-md-3">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu 1 <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Submenu 1-1</a></li>
-                                <li><a href="#">Submenu 1-2</a></li>
-                                <li><a href="#">Submenu 1-3</a></li>                        
-                            </ul>
-                        </li>
-                        <li><a href="#">Menu 2</a></li>
-                        <li><a href="#">Menu 3</a></li>
-                    </ul>
-                </div>
-                <div class="clearfix visible-lg"></div>
             </div>
+            <!-- /.row -->
+
+            <!-- Page Features -->
+            <div class="row text-center">
+
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/023.JPG" alt=""/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/037.JPG" alt=""/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/100_2523.JPG" alt=""/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/100_3326.JPG" alt=""/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="google_maps" style="width: 500px; height: 500px;">Google Maps</div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>Av. Ramon Mendoza No. 412-04, Col. Jose Maria Pino Suarez, C.P. 86029,Villahermosa, Tabasco, Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</p>
+                        <p>Copyright &copy; grupohisa.hol.es 2015</p>
+                    </div>
+                </div>
+            </footer>
+
         </div>
+        <!-- /.container -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpdw9gyXrQvIvyLrVi9FneyumQOE8_9CA&sensor=true"></script>
         <script src="js/jQuery/jquery-1.11.3.min.js"></script>
         <script src="twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script>
+            var map;
+            function initialize()
+            {   var coordenadas = new google.maps.LatLng(18.023869, -92.920003);
+                var opt = {zoom: 16, center: coordenadas, mapTypeId: google.maps.MapTypeId.ROADMAP};
+                var map = new google.maps.Map(document.getElementById('google_maps'), opt);
+                var marker = new google.maps.Marker({position:coordenadas, animation: google.maps.Animation.DROP,icon:"img/Map-Marker-Push-Pin-1-Left-Azure-icon.png"});
+                marker.setMap(map);
+                var text = "<h1>Grupo HISA</h1><ul><li>Av. Ramon Mendoza No. 412-04, Col. Jose Maria Pino Suarez</li><li>C.P. 86029,Villahermosa, Tabasco</li><li>Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</li></ul>";
+                var info = new google.maps.InfoWindow({content:text});
+                google.maps.event.addListener(marker,'click',function(){
+                    info.open(map,marker);
+                });
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
     </body>
 </html>
