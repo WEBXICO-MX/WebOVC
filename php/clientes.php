@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="Roberto Eder Weiss Juárez">
-        <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+        <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
         <link href="../twbs/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="../css/shop-homepage.css" rel="stylesheet"/>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -67,13 +67,22 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="item active">
-                                        <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                        <img class="slide-image" src="../img/800x300_6.jpg" alt="">
                                     </div>
                                     <div class="item">
-                                        <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                        <img class="slide-image" src="../img/800x300_1.jpg" alt="">
                                     </div>
                                     <div class="item">
-                                        <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                        <img class="slide-image" src="../img/800x300_2.png" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="../img/800x300_3.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="../img/800x300_4.png" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="../img/800x300_5.png" alt="">
                                     </div>
                                 </div>
                                 <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
@@ -91,119 +100,68 @@
 
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
-                                <img src="http://placehold.it/320x150" alt="">
+                                <img src="../img/320x150_1.png" alt="">
                                 <div class="caption">
-                                    <h4 class="pull-right">$24.99</h4>
                                     <h4><a href="#">First Product</a>
                                     </h4>
                                     <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
                                 </div>
-                                <div class="ratings">
-                                    <p class="pull-right">15 reviews</p>
-                                    <p>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                    </p>
-                                </div>
                             </div>
                         </div>
 
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
-                                <img src="http://placehold.it/320x150" alt="">
+                                <img src="../img/320x150_2.jpg" alt="">
                                 <div class="caption">
-                                    <h4 class="pull-right">$64.99</h4>
                                     <h4><a href="#">Second Product</a>
                                     </h4>
                                     <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                 </div>
-                                <div class="ratings">
-                                    <p class="pull-right">12 reviews</p>
-                                    <p>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                    </p>
-                                </div>
                             </div>
                         </div>
 
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
-                                <img src="http://placehold.it/320x150" alt="">
+                                <img src="../img/320x150_3.jpg" alt="">
                                 <div class="caption">
-                                    <h4 class="pull-right">$74.99</h4>
                                     <h4><a href="#">Third Product</a>
                                     </h4>
                                     <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                 </div>
-                                <div class="ratings">
-                                    <p class="pull-right">31 reviews</p>
-                                    <p>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                    </p>
-                                </div>
                             </div>
                         </div>
 
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
-                                <img src="http://placehold.it/320x150" alt="">
+                                <img src="../img/320x150_4.jpg" alt="">
                                 <div class="caption">
-                                    <h4 class="pull-right">$84.99</h4>
                                     <h4><a href="#">Fourth Product</a>
                                     </h4>
                                     <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                 </div>
-                                <div class="ratings">
-                                    <p class="pull-right">6 reviews</p>
-                                    <p>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                    </p>
-                                </div>
                             </div>
                         </div>
 
                         <div class="col-sm-4 col-lg-4 col-md-4">
                             <div class="thumbnail">
-                                <img src="http://placehold.it/320x150" alt="">
+                                <img src="../img/320x150_5.png" alt="">
                                 <div class="caption">
-                                    <h4 class="pull-right">$94.99</h4>
                                     <h4><a href="#">Fifth Product</a>
                                     </h4>
                                     <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                 </div>
-                                <div class="ratings">
-                                    <p class="pull-right">18 reviews</p>
-                                    <p>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                    </p>
-                                </div>
                             </div>
                         </div>
-
+                        
                         <div class="col-sm-4 col-lg-4 col-md-4">
-                            <h4><a href="#">Like this template?</a>
-                            </h4>
-                            <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!</p>
-                            <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
+                            <div class="thumbnail">
+                                <img src="../img/320x150_6.jpg" alt="">
+                                <div class="caption">
+                                    <h4><a href="#">Fifth Product</a>
+                                    </h4>
+                                    <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
