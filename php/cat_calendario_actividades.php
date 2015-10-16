@@ -1,5 +1,7 @@
 <?php
 require_once 'class/CalendarioActividad.php';
+require_once 'class/Actividad.php';
+require_once 'class/Municipio.php';
 require_once 'lib/Utilerias.php';
 
 //session_start();
@@ -38,11 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $txtFechaFin = date('Y-m-d H:i:s', $ff);
 
     $txtLugar = test_input($_POST["txtLugar"]);
-    $txtEstado = test_input($_POST["txtEstado"]);
-    $txtMunicipio = isset($_POST["txtMunicipio"]) ? test_input($_POST["txtMunicipio"]):"";
+    $txtEstado = (int) test_input($_POST["txtEstado"]);
+    $txtMunicipio = isset($_POST["txtMunicipio"]) ? (int) test_input($_POST["txtMunicipio"]):"";
     $txtImagenPortada = test_input($_POST["txtImagenPortada"]);
-    $txtPrecio = test_input($_POST["txtPrecio"]);
-    $txtCupoMaximo = test_input($_POST["txtCupoMaximo"]);
+    $txtPrecio = (float) test_input($_POST["txtPrecio"]);
+    $txtCupoMaximo = (int) test_input($_POST["txtCupoMaximo"]);
     $txtObservaciones = test_input($_POST["txtObservaciones"]);
     $cbxActivo = isset($_POST["cbxActivo"]) ? 1 : 0;
 
@@ -51,12 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($xAccion == 'grabar') {
-        $ca->setCve_actividad($txtCveActividad);
+        $ca->setCve_actividad(new Actividad($txtCveActividad));
         $ca->setFecha_inicio($txtFechaInicio);
         $ca->setFecha_fin($txtFechaFin);
         $ca->setLugar($txtLugar);
-        $ca->setCve_estado($txtEstado);
-        $ca->setCve_municipio($txtMunicipio);
+        $ca->setCve_municipio(new Municipio($txtEstado,$txtMunicipio));
         $ca->setImagen_portada($txtImagenPortada);
         $ca->setPrecio($txtPrecio);
         $ca->setCupo_maximo($txtCupoMaximo);
@@ -155,7 +156,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                         $sql2 = "SELECT * FROM actividades where activo=1 ORDER BY nombre";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                                         foreach ($rst2 as $row) {
-                                            echo("<option value='" . $row['cve_actividad'] . "' " . ($ca != NULL ? ($ca->getCve_actividad() != 0 ? ($ca->getCve_actividad() == $row['cve_actividad'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
+                                            echo("<option value='" . $row['cve_actividad'] . "' " . ($ca != NULL ? ($ca->getCve_actividad() != NULL ? ($ca->getCve_actividad()->getCve_actividad() == $row['cve_actividad'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
                                         }
                                         $rst2->closeCursor();
                                         ?>
@@ -207,7 +208,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                         $sql2 = "SELECT * FROM estados where activo=1 ORDER BY nombre";
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
                                         foreach ($rst2 as $row) {
-                                            echo("<option value='" . $row['cve_estado'] . "' " . ($ca != NULL ? ($ca->getCve_estado() != 0 ? ($ca->getCve_estado() == $row['cve_estado'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
+                                            echo("<option value='" . $row['cve_estado'] . "' " . ($ca != NULL ? ($ca->getCve_municipio() != NULL ? ($ca->getCve_municipio()->getCve_estado()->getCve_estado() == $row['cve_estado'] ? "selected" : "") : ""):"") . ">" . $row['nombre'] . "</option>");
                                         }
                                         $rst2->closeCursor();
                                         ?>
