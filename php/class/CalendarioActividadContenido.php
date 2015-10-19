@@ -9,6 +9,7 @@ require_once 'UtilDB.php';
 
 class CalendarioActividadContenido {
 
+    private $cve_actividad_contenido;
     private $cve_calendario;
     private $cve_tipo_contenido;
     private $url;
@@ -31,15 +32,17 @@ class CalendarioActividadContenido {
         }
     }
 
-    function __construct1($cveCalendario,$cveTipoContenido) {
+    function __construct1($cveActividadContenido,$cveCalendario,$cveTipoContenido) {
         $this->limpiar();
+        
+        $this->cve_actividad_contenido = $cveActividadContenido;
         $this->cve_calendario = $cveCalendario;
         $this->cve_tipo_contenido = $cveTipoContenido;
         $this->cargar();
     }
 
     private function limpiar() {
-
+        $this->cve_actividad_contenido = 0;
         $this->cve_calendario = 0;
         $this->cve_tipo_contenido = 0;
         $this->url = "";
@@ -52,16 +55,17 @@ class CalendarioActividadContenido {
         $count = 0;
 
         if (!$this->_existe) {
-            $sql = "INSERT INTO calendario_actividades_contenido VALUES($this->cve_calendario,$this->cve_tipo_contenido,'$this->url',$this->activo)";
+            $sql = "INSERT INTO calendario_actividades_contenido VALUES($this->cve_actividad_contenido,$this->cve_calendario,$this->cve_tipo_contenido,'$this->url',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE calendario_actividades_contenido SET ";
+            $sql.= "cve_actividad_contenido = $this->cve_actividad_contenido,";
             $sql.= "cve_calendario = $this->cve_calendario,";
             $sql.= "cve_tipo_contenido = $this->cve_tipo_contenido,";
-            $sql.= "url = '$this->nombre',";
+            $sql.= "url = '$this->url',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_calendario = $this->cve_calendario AND cve_tipo_contenido = $this->cve_tipo_contenido";
             $count = UtilDB::ejecutaSQL($sql);
