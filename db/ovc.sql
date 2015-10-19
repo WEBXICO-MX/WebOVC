@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2015 a las 22:07:21
+-- Tiempo de generación: 19-10-2015 a las 23:03:19
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -2661,6 +2661,7 @@ INSERT INTO `tipos_actividades` (`cve_tipo`, `cve_unidad_negocio`, `nombre`, `ac
 CREATE TABLE IF NOT EXISTS `tipos_contenido` (
   `cve_tipo_contenido` int(11) NOT NULL,
   `nombre` varchar(35) NOT NULL,
+  `icono` varchar(80) DEFAULT NULL,
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2668,13 +2669,13 @@ CREATE TABLE IF NOT EXISTS `tipos_contenido` (
 -- Volcado de datos para la tabla `tipos_contenido`
 --
 
-INSERT INTO `tipos_contenido` (`cve_tipo_contenido`, `nombre`, `activo`) VALUES
-(1, 'Imagen', b'1'),
-(2, 'Audio', b'1'),
-(3, 'Video', b'1'),
-(4, 'PDF', b'1'),
-(5, 'Word', b'1'),
-(6, 'Excel', b'1');
+INSERT INTO `tipos_contenido` (`cve_tipo_contenido`, `nombre`, `icono`, `activo`) VALUES
+(1, 'Imagen', '', b'1'),
+(2, 'Audio', '', b'1'),
+(3, 'Video', '', b'1'),
+(4, 'Word', '', b'1'),
+(5, 'PDF', '', b'1'),
+(6, 'Excel', '', b'1');
 
 -- --------------------------------------------------------
 
