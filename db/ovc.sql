@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2015 a las 21:39:42
+-- Tiempo de generación: 19-10-2015 a las 19:09:30
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -29,10 +29,24 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `actividades` (
   `cve_actividad` int(11) NOT NULL,
   `cve_tipo` int(11) NOT NULL,
-  `nombre` varchar(80) NOT NULL,
+  `nombre` varchar(120) NOT NULL,
   `descripcion` varchar(200) NOT NULL,
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `actividades`
+--
+
+INSERT INTO `actividades` (`cve_actividad`, `cve_tipo`, `nombre`, `descripcion`, `activo`) VALUES
+(1, 1, 'Curso para administrar el comportamiento y conductas efectivas', '', b'1'),
+(2, 1, 'Cursos para orrganizaciones', '', b'1'),
+(3, 1, 'Cursos para directivos', '', b'1'),
+(4, 1, 'Cursos para supervisión', '', b'1'),
+(5, 1, 'Cursos  de relaciones humanas', '', b'1'),
+(6, 1, 'Cursos para ventas y mercadotécnica', '', b'1'),
+(7, 1, 'Cursos para sistemas de gestión y mejoras de procesos de negocios hasta la certificación', '', b'1'),
+(8, 5, 'Mariachi 2000', '', b'1');
 
 -- --------------------------------------------------------
 
@@ -56,6 +70,13 @@ CREATE TABLE IF NOT EXISTS `calendario_actividades` (
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `calendario_actividades`
+--
+
+INSERT INTO `calendario_actividades` (`cve_calendario`, `cve_actividad`, `fecha_inicio`, `fecha_fin`, `lugar`, `cve_estado`, `cve_municipio`, `imagen_portada`, `precio`, `cupo_maximo`, `observaciones`, `fecha_alta`, `activo`) VALUES
+(1, 8, '2015-11-10 00:00:00', '2015-11-10 23:59:59', 'Esperanza Iris', 27, 4, NULL, 500, 100, 'Ninguna', '2015-10-19 12:03:25', b'1');
+
 -- --------------------------------------------------------
 
 --
@@ -68,6 +89,13 @@ CREATE TABLE IF NOT EXISTS `calendario_actividades_contenido` (
   `url` varchar(80) NOT NULL,
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `calendario_actividades_contenido`
+--
+
+INSERT INTO `calendario_actividades_contenido` (`cve_calendario`, `cve_tipo_contenido`, `url`, `activo`) VALUES
+(1, 1, '', b'1');
 
 -- --------------------------------------------------------
 
@@ -2611,6 +2639,18 @@ CREATE TABLE IF NOT EXISTS `tipos_actividades` (
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tipos_actividades`
+--
+
+INSERT INTO `tipos_actividades` (`cve_tipo`, `cve_unidad_negocio`, `nombre`, `activo`) VALUES
+(1, 1, 'Capacitación', b'1'),
+(2, 1, 'Conferencia', b'1'),
+(3, 1, 'Consultoría', b'1'),
+(4, 1, 'Congreso', b'1'),
+(5, 1, 'Concierto', b'1'),
+(6, 1, 'Obra de teatro', b'1');
+
 -- --------------------------------------------------------
 
 --
@@ -2623,6 +2663,18 @@ CREATE TABLE IF NOT EXISTS `tipos_contenido` (
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tipos_contenido`
+--
+
+INSERT INTO `tipos_contenido` (`cve_tipo_contenido`, `nombre`, `activo`) VALUES
+(1, 'Imagen', b'1'),
+(2, 'Audio', b'1'),
+(3, 'Video', b'1'),
+(4, 'PDF', b'1'),
+(5, 'Word', b'1'),
+(6, 'Excel', b'1');
+
 -- --------------------------------------------------------
 
 --
@@ -2634,6 +2686,13 @@ CREATE TABLE IF NOT EXISTS `unidades_negocio` (
   `nombre` varchar(50) NOT NULL,
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla para guardar los 2 giros del negocio, el de capacitaci';
+
+--
+-- Volcado de datos para la tabla `unidades_negocio`
+--
+
+INSERT INTO `unidades_negocio` (`cve_unidad_negocio`, `nombre`, `activo`) VALUES
+(1, 'Grupo HISA', b'1');
 
 --
 -- Índices para tablas volcadas
