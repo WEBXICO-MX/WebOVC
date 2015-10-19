@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2015 a las 19:09:30
+-- Tiempo de generación: 19-10-2015 a las 22:07:21
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -84,6 +84,7 @@ INSERT INTO `calendario_actividades` (`cve_calendario`, `cve_actividad`, `fecha_
 --
 
 CREATE TABLE IF NOT EXISTS `calendario_actividades_contenido` (
+  `cve_actividad_contenido` int(11) NOT NULL,
   `cve_calendario` int(11) NOT NULL,
   `cve_tipo_contenido` int(11) NOT NULL,
   `url` varchar(80) NOT NULL,
@@ -94,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `calendario_actividades_contenido` (
 -- Volcado de datos para la tabla `calendario_actividades_contenido`
 --
 
-INSERT INTO `calendario_actividades_contenido` (`cve_calendario`, `cve_tipo_contenido`, `url`, `activo`) VALUES
-(1, 1, '', b'1');
+INSERT INTO `calendario_actividades_contenido` (`cve_actividad_contenido`, `cve_calendario`, `cve_tipo_contenido`, `url`, `activo`) VALUES
+(1, 1, 1, '', b'1');
 
 -- --------------------------------------------------------
 
@@ -2719,7 +2720,7 @@ ALTER TABLE `calendario_actividades`
 -- Indices de la tabla `calendario_actividades_contenido`
 --
 ALTER TABLE `calendario_actividades_contenido`
-  ADD PRIMARY KEY (`cve_calendario`,`cve_tipo_contenido`),
+  ADD PRIMARY KEY (`cve_actividad_contenido`),
   ADD KEY `index_1` (`cve_calendario`),
   ADD KEY `fk_reference_7` (`cve_tipo_contenido`);
 
