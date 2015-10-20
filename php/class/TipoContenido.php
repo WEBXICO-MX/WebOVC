@@ -52,7 +52,7 @@ class TipoContenido {
 
         if (!$this->_existe) {
             $this->cve_tipo_contenido = UtilDB::getSiguienteNumero("tipos_contenido", "cve_tipo_contenido");
-            $sql = "INSERT INTO tipos_contenido VALUES($this->cve_tipo_contenido,'$this->nombre','$this->icono',$this->activo)";
+            $sql = "INSERT INTO tipos_contenido VALUES($this->cve_tipo_contenido,'$this->nombre',NULL,$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
@@ -60,7 +60,6 @@ class TipoContenido {
         } else {
             $sql = "UPDATE tipos_contenido SET ";
             $sql.= "nombre = '$this->nombre',";
-            $sql.= "icono = '$this->icono',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_tipo_contenido = $this->cve_tipo_contenido";
             $count = UtilDB::ejecutaSQL($sql);
