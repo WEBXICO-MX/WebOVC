@@ -67,18 +67,19 @@ class CalendarioActividadContenido {
             $sql.= "cve_tipo_contenido = $this->cve_tipo_contenido,";
             $sql.= "url = '$this->url',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
-            $sql.= " WHERE cve_calendario = $this->cve_calendario AND cve_tipo_contenido = $this->cve_tipo_contenido";
+            $sql.= " WHERE cve_actividad_contenido = $this->cve_actividad_contenido AND cve_calendario = $this->cve_calendario AND cve_tipo_contenido = $this->cve_tipo_contenido";
             $count = UtilDB::ejecutaSQL($sql);
         }
         return $count;
     }
 
     function cargar() {
-        $sql = "SELECT * FROM calendario_actividades_contenido WHERE cve_calendario = $this->cve_calendario AND cve_tipo_contenido = $this->cve_tipo_contenido";
+        $sql = "SELECT * FROM calendario_actividades_contenido WHERE cve_actividad_contenido = $this->cve_actividad_contenido AND cve_calendario = $this->cve_calendario AND cve_tipo_contenido = $this->cve_tipo_contenido";
         $rst = UtilDB::ejecutaConsulta($sql);
 
         foreach ($rst as $row) {
-             $this->cve_calendario = $row['cve_calendario'];
+            $this->cve_actividad_contenido = $row['cve_actividad_contenido'];
+            $this->cve_calendario = $row['cve_calendario'];
             $this->cve_tipo_contenido = $row['cve_tipo_contenido'];
             $this->url = $row['url'];
             $this->activo = $row['activo'];
@@ -88,11 +89,15 @@ class CalendarioActividadContenido {
     }
 
     function borrar() {
-        $sql = "DELETE FROM calendario_actividades_contenido WHERE cve_calendario = $this->cve_calendario AND cve_tipo_contenido = $this->cve_tipo_contenido";
+        $sql = "DELETE FROM calendario_actividades_contenido WHERE cve_actividad_contenido= $this->cve_actividad_contenido AND cve_calendario = $this->cve_calendario AND cve_tipo_contenido = $this->cve_tipo_contenido";
         $count = UtilDB::ejecutaSQL($sql);
         return $count;
     }
 
+    function getCve_actividad_contenido() {
+        return $this->cve_actividad_contenido;
+    }
+    
     function getCve_calendario() {
         return $this->cve_calendario;
     }
@@ -113,6 +118,10 @@ class CalendarioActividadContenido {
         return $this->_existe;
     }
 
+    function setCve_actividad_contenido($cve_actividad_contenido) {
+        $this->cve_actividad_contenido = $cve_actividad_contenido;
+    }
+    
     function setCve_calendario($cve_calendario) {
         $this->cve_calendario = $cve_calendario;
     }
@@ -132,5 +141,4 @@ class CalendarioActividadContenido {
     function set_existe($_existe) {
         $this->_existe = $_existe;
     }
-
 }
