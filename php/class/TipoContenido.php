@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @author Roberto Eder Weiss Juárez
@@ -9,10 +10,10 @@ require_once 'UtilDB.php';
 class TipoContenido {
 
     private $cve_tipo_contenido;
-    private $nombre;   
+    private $nombre;
+    private $icono;
     private $activo;
     private $_existe;
-    
 
     function __construct() {
         $this->limpiar();
@@ -39,7 +40,8 @@ class TipoContenido {
     private function limpiar() {
 
         $this->cve_tipo_contenido = 0;
-        $this->nombre = "";      
+        $this->nombre = "";
+        $this->icono = "";
         $this->activo = false;
         $this->_existe = false;
     }
@@ -50,14 +52,15 @@ class TipoContenido {
 
         if (!$this->_existe) {
             $this->cve_tipo_contenido = UtilDB::getSiguienteNumero("tipos_contenido", "cve_tipo_contenido");
-            $sql = "INSERT INTO tipos_contenido VALUES($this->cve_tipo_contenido,'$this->nombre',$this->activo)";
+            $sql = "INSERT INTO tipos_contenido VALUES($this->cve_tipo_contenido,'$this->nombre','$this->icono',$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
             }
         } else {
             $sql = "UPDATE tipos_contenido SET ";
-            $sql.= "nombre = '$this->nombre',";           
+            $sql.= "nombre = '$this->nombre',";
+            $sql.= "icono = '$this->icono',";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_tipo_contenido = $this->cve_tipo_contenido";
             $count = UtilDB::ejecutaSQL($sql);
@@ -71,7 +74,8 @@ class TipoContenido {
 
         foreach ($rst as $row) {
             $this->cve_tipo_contenido = $row['cve_tipo_contenido'];
-            $this->nombre = $row['nombre'];           
+            $this->nombre = $row['nombre'];
+            $this->nombre = $row['icono'];
             $this->activo = $row['activo'];
             $this->_existe = true;
         }
@@ -79,9 +83,9 @@ class TipoContenido {
     }
 
     function borrar() {
-      $sql = "DELETE FROM tipos_contenido WHERE cve_tipo_contenido = $this->cve_tipo_contenido";
-      $count = UtilDB::ejecutaSQL($sql);
-      return $count;
+        $sql = "DELETE FROM tipos_contenido WHERE cve_tipo_contenido = $this->cve_tipo_contenido";
+        $count = UtilDB::ejecutaSQL($sql);
+        return $count;
     }
 
     function getCve_tipo_contenido() {
@@ -91,11 +95,15 @@ class TipoContenido {
     function getNombre() {
         return $this->nombre;
     }
-    
+
+    function getIcono() {
+        return $this->icono;
+    }
+
     function getActivo() {
         return $this->activo;
     }
-    
+
     function get_existe() {
         return $this->_existe;
     }
@@ -106,13 +114,18 @@ class TipoContenido {
 
     function setNombre($nombre) {
         $this->nombre = $nombre;
-    }   
-   
+    }
+
+    function setIcono($icono) {
+        $this->icono = $icono;
+    }
+
     function setActivo($activo) {
         $this->activo = $activo;
-    }   
+    }
 
     function set_existe($_existe) {
         $this->_existe = $_existe;
     }
+
 }
