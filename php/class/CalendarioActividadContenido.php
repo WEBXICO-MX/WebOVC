@@ -64,7 +64,7 @@ class CalendarioActividadContenido {
             $sql = "INSERT INTO calendario_actividades_contenido VALUES( ";
             $sql.= "$this->cve_actividad_contenido,";
             $sql.= $this->cve_calendario->getCve_calendario().","; 
-            $sql.= $this->cve_tipo_contenido->getCve_tipo_contenido().",'$this->url',$this->activo)";
+            $sql.= $this->cve_tipo_contenido->getCve_tipo_contenido().",NULL,$this->activo)";
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) { 
                 $this->_existe = true;
@@ -74,7 +74,7 @@ class CalendarioActividadContenido {
             $sql.= "cve_actividad_contenido = $this->cve_actividad_contenido,";
             $sql.= "cve_calendario =". $this->cve_calendario->getCve_calendario().",";
             $sql.= "cve_tipo_contenido =". $this->cve_tipo_contenido->getCve_tipo_contenido().",";
-            $sql.= "url = '$this->url',";
+            $sql.= "url = NULL,";
             $sql.= "activo=" . ($this->activo ? "1" : "0");
             $sql.= " WHERE cve_actividad_contenido = $this->cve_actividad_contenido";
             $count = UtilDB::ejecutaSQL($sql);
