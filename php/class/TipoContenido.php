@@ -74,7 +74,7 @@ class TipoContenido {
         foreach ($rst as $row) {
             $this->cve_tipo_contenido = $row['cve_tipo_contenido'];
             $this->nombre = $row['nombre'];
-            $this->nombre = $row['icono'];
+            $this->icono = $row['icono'];
             $this->activo = $row['activo'];
             $this->_existe = true;
         }
