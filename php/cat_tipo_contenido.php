@@ -107,6 +107,12 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     <label for="txtNombre" class="col-lg-2 control-label">Nombre</label>
                                     <div class="col-lg-10">
                                         <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombre" value="<?php echo($tc != NULL ? $tc->getNombre():""); ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtIcono" class="col-lg-2 control-label">Icono</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="txtIcono" name="txtIcono" placeholder="Icono" value="<?php echo($tc != NULL ? $tc->getIcono():""); ?>" readonly>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" id="cbxActivo" name="cbxActivo" <?php echo($tc != NULL ? ($tc->getCve_tipo_contenido() != 0 ? ($tc->getActivo() ? "checked" : "") : "checked"):""); ?>> Activo
@@ -136,6 +142,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
+                                <th>Icono</th>
                                 <th>Activo</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -146,6 +153,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                             <tr>
                                 <td><?php echo($row['cve_tipo_contenido']);?></td>
                                 <td><?php echo($row['nombre']);?></td>
+                                <th><?php echo($row['icono'] != "" ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['nombre']) . "\" title=\"" . $row['nombre'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['icono'] . "' alt='" . $row['nombre'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/><br/><br/><a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_tipo_contenido_img.php?xCveTipoContenido=" . $row['cve_tipo_contenido'] ."\" href=\"javascript:void(0);\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_tipo_contenido_img.php?xCveTipoContenido=" . $row['cve_tipo_contenido'] . "\" href=\"javascript:void(0);\">Subir imagen</a>"); ?></th>
                                 <td><?php echo($row['activo'] == 1 ? "Si":"No");?></td>
                                 <td><a href="javascript:void(0);" onclick="editar(<?php echo($row['cve_tipo_contenido']);?>);"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a href="javascript:void(0);" onclick="if(confirm('¿Está realmente seguro de eliminar este registro?')){eliminar(<?php echo($row['cve_tipo_contenido']);?>);}else{ return false;};"><span class="glyphicon glyphicon-erase"></span></a></td>
@@ -156,10 +164,30 @@ $rst = UtilDB::ejecutaConsulta($sql);
                 </div>
             </div>
             <?php }?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" ria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="../js/jQuery/jquery-1.11.3.min.js"></script>
         <script src="../twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
         <script>
+            
+            $(document).ready(function(){
+                
+                $('[data-toggle="popover"]').popover({placement: 'top', html: true, trigger: 'click hover'});
+
+                $('body').on('hidden.bs.modal', '.modal', function () {
+                    $(this).removeData('bs.modal');
+                });
+                
+            });
+            
             function grabar()
             {
                 $("#xAccion").val("grabar");
@@ -183,6 +211,19 @@ $rst = UtilDB::ejecutaConsulta($sql);
                 $("#xAccion").val("");
                 $("#txtCveTipoContenido").val("0");
                 $("#frm_captura").submit();
+            }
+            
+            function subir()
+            {
+                if ($("#fileToUpload").val() !== "")
+                {
+                    $("#xAccion2").val("upload");
+                    $("#frmUpload").submit();
+                }
+                else
+                {
+                    alert("No ha seleccionado un archivo para subir.");
+                }
             }
         </script>
     </body>
