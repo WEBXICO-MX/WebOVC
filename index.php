@@ -19,36 +19,7 @@
     </head>
     <body>
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.php">Grupo HISA</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="php/quienes_somos.php">¿Quiénes somos?</a>
-                        </li>
-                        <li>
-                            <a href="php/clientes.php">Clientes</a>
-                        </li>
-                        <li>
-                            <a href="#">Lista de cursos y diplomados</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
+        <?php require_once 'php/include_header.php'; ?>
 
         <!-- Page Content -->
         <div class="container">
@@ -102,108 +73,118 @@
             <!-- Title -->
             <div class="row">
                 <div class="col-lg-12">
-                    <h3>Latest Features</h3>
+                    <h3>Actividades</h3>
                 </div>
             </div>
             <!-- /.row -->
 
             <!-- Page Features -->
             <div class="row text-center">
-
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="img/023.JPG" alt=""/>
+                        <img src="img/023.JPG" alt="" class="img-rounded"/>
                         <div class="caption">
                             <h3>Feature Label</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
                             </p>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="img/037.JPG" alt=""/>
+                        <img src="img/037.JPG" alt="" class="img-rounded"/>
                         <div class="caption">
                             <h3>Feature Label</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
                             </p>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="img/100_2523.JPG" alt=""/>
+                        <img src="img/100_2523.JPG" alt="" class="img-rounded"/>
                         <div class="caption">
                             <h3>Feature Label</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
                             </p>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="img/100_3326.JPG" alt=""/>
+                        <img src="img/100_3326.JPG" alt="" class="img-rounded"/>
                         <div class="caption">
                             <h3>Feature Label</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
                             </p>
                         </div>
                     </div>
                 </div>
-
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/023.JPG" alt="" class="img-rounded"/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/037.JPG" alt="" class="img-rounded"/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/100_2523.JPG" alt="" class="img-rounded"/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="img/100_3326.JPG" alt="" class="img-rounded"/>
+                        <div class="caption">
+                            <h3>Feature Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>
+                                <a href="#" class="btn btn-primary">Leer más</a> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-
             <hr>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="google_maps" style="width: 500px; height: 500px;">Google Maps</div>
-                </div>
-            </div>
-            <hr>
-
-            <!-- Footer -->
-            <footer>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>Av. Ramon Mendoza No. 412-04, Col. Jose Maria Pino Suarez, C.P. 86029,Villahermosa, Tabasco, Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</p>
-                        <p>Copyright &copy; grupohisa.hol.es 2015</p>
-                    </div>
-                </div>
-            </footer>
-
+            <?php require_once 'php/include_footer.php'; ?>
         </div>
         <!-- /.container -->
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpdw9gyXrQvIvyLrVi9FneyumQOE8_9CA&sensor=true"></script>
+        <script src="js/maps.js"></script>
         <script src="js/jQuery/jquery-1.11.3.min.js"></script>
         <script src="twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-        <script>
-            var map;
-            function initialize()
-            {
-                var coordenadas = new google.maps.LatLng(18.023869, -92.920003);
-                var opt = {zoom: 16, center: coordenadas, mapTypeId: google.maps.MapTypeId.ROADMAP};
-                var map = new google.maps.Map(document.getElementById('google_maps'), opt);
-                var marker = new google.maps.Marker({position: coordenadas, animation: google.maps.Animation.DROP, icon: "img/Map-Marker-Push-Pin-1-Left-Azure-icon.png"});
-                marker.setMap(map);
-                var text = "<h1>Grupo HISA</h1><ul><li>Col. Jose Maria Pino Suarez</li><li>Av. Ramon Mendoza No. 412-04</li><li>C.P. 86029</li><li>Villahermosa, Tabasco</li><li>Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</li></ul>";
-                var info = new google.maps.InfoWindow({content: text});
-                google.maps.event.addListener(marker, 'click', function () {
-                    info.open(map, marker);
-                });
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
+        <script src="js/ovc.js"></script>
     </body>
 </html>
