@@ -57,7 +57,8 @@ class Contacto {
 
         if (!$this->_existe) {
             $this->cve_contacto = UtilDB::getSiguienteNumero("contactos", "cve_contacto");
-            $sql = "INSERT INTO contactos VALUES($this->cve_contacto,'$this->nombre','$this->correo','$this->telefono','$this->comentario',NOW(),$this->activo)";
+            $sql = "INSERT INTO contactos VALUES($this->cve_contacto,'$this->nombre','$this->correo','$this->telefono','$this->comentario',NOW(),1)";
+            echo($sql);
             $count = UtilDB::ejecutaSQL($sql);
             if ($count > 0) {
                 $this->_existe = true;
