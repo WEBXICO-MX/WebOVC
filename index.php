@@ -53,13 +53,49 @@
         <!-- Page Content -->
         <div class="container">
 
-            <!-- Jumbotron Header -->
-            <header class="jumbotron hero-spacer">
-                <h1>Grupo HISA</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-                <p><a class="btn btn-primary btn-large">Call to action!</a>
-                </p>
-            </header>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row carousel-holder">
+
+                        <div class="col-md-12">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img class="slide-image" src="img/800x300_6.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="img/800x300_1.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="img/800x300_2.png" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="img/800x300_3.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="img/800x300_4.png" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="img/800x300_5.png" alt="">
+                                    </div>
+                                </div>
+                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             <hr>
 
@@ -127,7 +163,7 @@
                 </div>
 
             </div>
-            
+
             <hr>
             <!-- /.row -->
             <div class="row">
@@ -155,15 +191,16 @@
         <script>
             var map;
             function initialize()
-            {   var coordenadas = new google.maps.LatLng(18.023869, -92.920003);
+            {
+                var coordenadas = new google.maps.LatLng(18.023869, -92.920003);
                 var opt = {zoom: 16, center: coordenadas, mapTypeId: google.maps.MapTypeId.ROADMAP};
                 var map = new google.maps.Map(document.getElementById('google_maps'), opt);
-                var marker = new google.maps.Marker({position:coordenadas, animation: google.maps.Animation.DROP,icon:"img/Map-Marker-Push-Pin-1-Left-Azure-icon.png"});
+                var marker = new google.maps.Marker({position: coordenadas, animation: google.maps.Animation.DROP, icon: "img/Map-Marker-Push-Pin-1-Left-Azure-icon.png"});
                 marker.setMap(map);
                 var text = "<h1>Grupo HISA</h1><ul><li>Col. Jose Maria Pino Suarez</li><li>Av. Ramon Mendoza No. 412-04</li><li>C.P. 86029</li><li>Villahermosa, Tabasco</li><li>Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</li></ul>";
-                var info = new google.maps.InfoWindow({content:text});
-                google.maps.event.addListener(marker,'click',function(){
-                    info.open(map,marker);
+                var info = new google.maps.InfoWindow({content: text});
+                google.maps.event.addListener(marker, 'click', function () {
+                    info.open(map, marker);
                 });
             }
             google.maps.event.addDomListener(window, 'load', initialize);
