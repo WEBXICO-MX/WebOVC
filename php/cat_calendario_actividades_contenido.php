@@ -146,12 +146,12 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                <label for="txtCveTipoContenido">Calendario:</label>
+                                <label for="txtCveTipoContenido">Tipo Contenido:</label>
                                    <select name="txtCveTipoContenido" id="txtCveTipoContenido" class="form-control" placeholder="TipoContenido">
                                        <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                                        <?php
                                        //echo($ca);
-                                       $sql2 = "SELECT * FROM `tipos_contenido` WHERE activo=1 ORDER BY nombre ";
+                                       $sql2 = "SELECT * FROM tipos_contenido WHERE activo=1 ORDER BY nombre ";
 
                                        $rst2 = UtilDB::ejecutaConsulta($sql2);
                                        foreach ($rst2 as $row) {
