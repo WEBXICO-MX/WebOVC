@@ -10,7 +10,7 @@ class UtilDB {
     private static $servername = "localhost";
     private static $username = "root";
     private static $password = "";
-    private static $database = "ovc";
+    private static $database = "u798069583_ovc"; //ovc
     private static $cnx = NULL;
 
     function __construct() {
