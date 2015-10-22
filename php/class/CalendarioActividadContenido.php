@@ -31,8 +31,8 @@ class CalendarioActividadContenido {
         $nargs = func_num_args();
 
         switch ($nargs) {
-            case 2:
-                self::__construct1($args[0],$args[1]);
+            case 1:
+                self::__construct1($args[0]);
                 break;
             //case 2:
             //self::__construct2($args[0], $args[1]);
@@ -61,6 +61,7 @@ class CalendarioActividadContenido {
         $count = 0;
 
         if (!$this->_existe) {
+            $this->cve_actividad_contenido = UtilDB::getSiguienteNumero("calendario_actividades_contenido", "cve_actividad_contenido");
             $sql = "INSERT INTO calendario_actividades_contenido VALUES( ";
             $sql.= "$this->cve_actividad_contenido,";
             $sql.= $this->cve_calendario->getCve_calendario().","; 

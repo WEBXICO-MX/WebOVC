@@ -6,6 +6,8 @@
  * @see {@link http://webxico.blogspot.mx/}
  */
 require_once 'UtilDB.php';
+require_once 'Actividad.php';
+require_once 'Municipio.php';
 
 class CalendarioActividad {
 
