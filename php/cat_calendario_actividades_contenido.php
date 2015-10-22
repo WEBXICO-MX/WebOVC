@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cbxActivo = isset($_POST["cbxActivo"]) ? 1 : 0;
 
     if ($txtCveActividadContenido != 0) {
-        $cac = new CalendarioActividadContenido($txtCveCalendario);
+        $cac = new CalendarioActividadContenido($txtCveActividadContenido);            
     }
 
     if ($xAccion == 'grabar') {
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $sql = "SELECT cac.cve_actividad_contenido,cac.cve_calendario,cac.cve_tipo_contenido, ";
-$sql.= "concat(a.nombre,' Fecha inicio: ',DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),' Fecha fin:',DATE_FORMAT(fecha_fin,'%d/%m/%Y'))as actividad,cac.activo ";
+$sql.= "concat(a.nombre,' Fecha inicio: ',DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),' Fecha fin:',DATE_FORMAT(fecha_fin,'%d/%m/%Y'))as actividad,tc.nombre as tipo_contenido,cac.activo ";
 $sql.= "FROM calendario_actividades_contenido as cac ";
 $sql.= "INNER JOIN calendario_actividades ca on ca.cve_calendario=cac.cve_calendario ";
 $sql.= "INNER JOIN actividades a on a.cve_actividad=ca.cve_actividad ";
@@ -121,7 +121,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                     <label for="txtCveActividadContenido" class="col-lg-4 control-label">ID</label>
                                     <div class="col-lg-8">
                                         <input type="hidden" id="xAccion" name="xAccion" value="0">
-                                        <input type="text" class="form-control" id="txtCveActividadContenido" name="txtCveActividadContenido" placeholder="ID Calendario actividad contenido" readonly value="<?php echo($cac != NULL ? $cac->getCve_calendario():""); ?>">
+                                        <input type="text" class="form-control" id="txtCveActividadContenido" name="txtCveActividadContenido" placeholder="ID Calendario actividad contenido" readonly value="<?php echo($cac != NULL ? $cac->getCve_actividad_contenido():""); ?>">
                                     </div>
                                  </div>
                                 <div class="form-group">
@@ -130,11 +130,10 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                         <option value="0">--------- SELECCIONE UNA OPCIÓN ---------</option>
                                         <?php
                                         //echo($ca);
-                                        $sql2 = "SELECT cac.cve_actividad_contenido,cac.cve_calendario,cac.cve_tipo_contenido,concat(a.nombre,' Fecha inicio: ',DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),' Fecha fin:',DATE_FORMAT(fecha_fin,'%d/%m/%Y'))as actividad,cac.activo ";
-                                        $sql2.= "FROM calendario_actividades_contenido as cac ";
-                                        $sql2.= "INNER JOIN calendario_actividades ca on ca.cve_calendario=cac.cve_calendario ";
+                                        $sql2 = "SELECT ca.cve_calendario,concat(a.nombre,' Fecha inicio: ',DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),' Fecha fin:',DATE_FORMAT(fecha_fin,'%d/%m/%Y'))as actividad,ca.activo ";
+                                        $sql2.= "FROM calendario_actividades as ca ";                                       
                                         $sql2.= "INNER JOIN actividades a on a.cve_actividad=ca.cve_actividad ";
-                                        $sql2.= "WHERE cac.activo=1 ";
+                                        $sql2.= "WHERE ca.activo=1 ";
                                         $sql2 .= "ORDER BY a.nombre ";
 
                                         $rst2 = UtilDB::ejecutaConsulta($sql2);
@@ -183,7 +182,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                     </div>
                 </div>
             </div>
-             <?php if($rst->rowCount() > 0){?>
+            <?php if($rst->rowCount() > 0){?>
             <div class="col-md-8 col-md-offset-2">
                 <div class="page-header">
                     <h1 id="tables">Listado</h1>
@@ -203,13 +202,78 @@ $rst = UtilDB::ejecutaConsulta($sql);
                         </thead>
                         <tbody>
                             <?php foreach ($rst as $row){?>
-                           
+                            <tr>
+                                <td><?php echo($row['cve_actividad_contenido']);?></td>
+                                <td><?php echo($row['actividad']);?></td>
+                                <td><?php echo($row['tipo_contenido']);?></td>                                
+                                <th><?php echo($row['tipo_contenido'] != "" ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['tipo_contenido']) . "\" style=\"cursor:pointer;\"/><br/><br/><a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_contenido_img.php?xCveTipoContenido=" . $row['cve_tipo_contenido'] ."&xCveActividadContenido=".$row['cve_actividad_contenido']."\" href=\"javascript:void(0);\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_contenido_img.php?xCveTipoContenido=" . $row['cve_tipo_contenido'] . "\" href=\"javascript:void(0);\">Subir imagen</a>"); ?></th>
+                                <td><?php echo($row['activo'] == 1 ? "Si":"No");?></td>
+                                <td><a href="javascript:void(0);" onclick="editar(<?php echo($row['cve_actividad_contenido']);?>);"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a href="javascript:void(0);" onclick="if(confirm('¿Está realmente seguro de eliminar este registro?')){eliminar(<?php echo($row['cve_actividad_contenido']);?>);}else{ return false;};"><span class="glyphicon glyphicon-erase"></span></a></td>
+                            </tr>
                             <?php } $rst->closeCursor();?>
                         </tbody>
                     </table> 
                 </div>
             </div>
             <?php }?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" ria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="../js/jQuery/jquery-1.11.3.min.js"></script>
+            <script src="../twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+            <script>
+            
+            $(document).ready(function(){                              
+                $('body').on('hidden.bs.modal', '.modal', function () {
+                    $(this).removeData('bs.modal');
+                });                
+            });
+            
+            function grabar()
+            {
+                $("#xAccion").val("grabar");
+                $("#frm_captura").submit();
+            }
+            
+            function editar(cve_actividad_contenido)
+            {   $("#txtCveActividadContenido").val(cve_actividad_contenido);
+                $("#frm_captura").submit();
+            }
+            
+            function eliminar(cve_actividad_contenido)
+            {
+                $("#xAccion").val("eliminar");
+                $("#txtCveActividadContenido").val(cve_actividad_contenido);
+                $("#frm_captura").submit();
+            }
+
+            function limpiar()
+            {
+                $("#xAccion").val("");
+                $("#txtCveActividadContenido").val("0");
+                $("#frm_captura").submit();
+            }
+            
+            function subir()
+            {
+                if ($("#fileToUpload").val() !== "")
+                {
+                    $("#xAccion2").val("upload");
+                    $("#frmUpload").submit();
+                }
+                else
+                {
+                    alert("No ha seleccionado un archivo para subir.");
+                }
+            }
+        </script>            
         </div>
     </body>
 </html>
