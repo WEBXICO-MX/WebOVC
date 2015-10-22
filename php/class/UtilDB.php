@@ -9,7 +9,7 @@ class UtilDB {
 
     private static $servername = "mysql.hostinger.es"; //localhost
     private static $username = "u798069583_ovc"; //root
-    private static $password = "";
+    private static $password = "9811977";
     private static $database = "u798069583_ovc"; //ovc
     private static $cnx = NULL;
 
