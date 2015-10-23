@@ -34,7 +34,7 @@
 <footer>
     <div class="row">
         <div class="col-md-12">
-            <p>Av. Ramon Mendoza No. 412-04, Col. Jose Maria Pino Suarez, C.P. 86029,Villahermosa, Tabasco, Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</p>
+            <p>Villahermosa, Tabasco, C.P. 86000</p>
             <p>Copyright &copy; grupohisa.hol.es 2015</p>
         </div>
     </div>
