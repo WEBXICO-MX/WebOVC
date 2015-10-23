@@ -7,7 +7,7 @@ function initialize()
     var map = new google.maps.Map(document.getElementById('google_maps'), opt);
     var marker = new google.maps.Marker({position: coordenadas, animation: google.maps.Animation.DROP, icon: "img/Map-Marker-Push-Pin-1-Left-Pink-icon.png"});
     marker.setMap(map);
-    var text = "<h1>Grupo HISA</h1><ul><li>Col. Jose Maria Pino Suarez</li><li>Av. Ramon Mendoza No. 412-04</li><li>C.P. 86029</li><li>Villahermosa, Tabasco</li><li>Tel: (993) 3 57 25 05, Cel: 9931 57 44 41</li></ul>";
+    var text = "<h1>Grupo HISA</h1><ul><li>Villahermosa, Tabasco</li><li>C.P. 86000</li><li>Correo: <a href='mailto:grupohisa96@gmail.com'>grupohisa96@gmail.com</a></li></ul><p>Capacitación, Conferencias, Consultoría, Congresos, Conciertos ,Logistica, Expociciones y obras de Teatro</p>";
     var info = new google.maps.InfoWindow({content: text});
     google.maps.event.addListener(marker, 'click', function () {
         info.open(map, marker);
