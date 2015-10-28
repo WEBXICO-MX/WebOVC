@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -28,6 +28,9 @@
                 <li>
                     <a href="#">Lista de cursos y diplomados</a>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="https://www.facebook.com/Grupo-HISA-1505454233113754/" target="_blank">Facebook</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

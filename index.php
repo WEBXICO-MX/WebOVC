@@ -9,6 +9,7 @@
         <meta name="author" content="Roberto Eder Weiss Juárez">
         <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
         <link href="twbs/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/TWBSColor.css" rel="stylesheet"/>
         <link href="css/heroic-features.css" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
