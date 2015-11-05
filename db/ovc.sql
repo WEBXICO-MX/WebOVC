@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2015 a las 23:03:19
+-- Tiempo de generación: 05-11-2015 a las 18:40:03
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -39,14 +39,13 @@ CREATE TABLE IF NOT EXISTS `actividades` (
 --
 
 INSERT INTO `actividades` (`cve_actividad`, `cve_tipo`, `nombre`, `descripcion`, `activo`) VALUES
-(1, 1, 'Curso para administrar el comportamiento y conductas efectivas', '', b'1'),
-(2, 1, 'Cursos para orrganizaciones', '', b'1'),
-(3, 1, 'Cursos para directivos', '', b'1'),
-(4, 1, 'Cursos para supervisión', '', b'1'),
-(5, 1, 'Cursos  de relaciones humanas', '', b'1'),
-(6, 1, 'Cursos para ventas y mercadotécnica', '', b'1'),
-(7, 1, 'Cursos para sistemas de gestión y mejoras de procesos de negocios hasta la certificación', '', b'1'),
-(8, 5, 'Mariachi 2000', '', b'1');
+(1, 1, 'Curso de liderazgo institucional', '', b'1'),
+(2, 1, 'Curso de liderazgo', '', b'1'),
+(3, 1, 'Curso de servicio de excelencia al cliente', '', b'1'),
+(4, 1, 'Cursos de código de ética y de conducta en la administración pública', '', b'1'),
+(5, 1, 'Cursos de autoestima y calidad de vida', '', b'1'),
+(6, 1, 'Cursos de seguridad e higiene y combate contra incendio y primeros Auxilios', '', b'1'),
+(7, 1, 'Curso el arte del liderazgo', '', b'1');
 
 -- --------------------------------------------------------
 
@@ -70,13 +69,6 @@ CREATE TABLE IF NOT EXISTS `calendario_actividades` (
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `calendario_actividades`
---
-
-INSERT INTO `calendario_actividades` (`cve_calendario`, `cve_actividad`, `fecha_inicio`, `fecha_fin`, `lugar`, `cve_estado`, `cve_municipio`, `imagen_portada`, `precio`, `cupo_maximo`, `observaciones`, `fecha_alta`, `activo`) VALUES
-(1, 8, '2015-11-10 00:00:00', '2015-11-10 23:59:59', 'Esperanza Iris', 27, 4, NULL, 500, 100, 'Ninguna', '2015-10-19 12:03:25', b'1');
-
 -- --------------------------------------------------------
 
 --
@@ -87,16 +79,25 @@ CREATE TABLE IF NOT EXISTS `calendario_actividades_contenido` (
   `cve_actividad_contenido` int(11) NOT NULL,
   `cve_calendario` int(11) NOT NULL,
   `cve_tipo_contenido` int(11) NOT NULL,
-  `url` varchar(80) NOT NULL,
+  `url` varchar(80) DEFAULT NULL,
   `activo` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `calendario_actividades_contenido`
+-- Estructura de tabla para la tabla `contactos`
 --
 
-INSERT INTO `calendario_actividades_contenido` (`cve_actividad_contenido`, `cve_calendario`, `cve_tipo_contenido`, `url`, `activo`) VALUES
-(1, 1, 1, '', b'1');
+CREATE TABLE IF NOT EXISTS `contactos` (
+  `cve_contacto` int(11) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
+  `comentario` varchar(350) NOT NULL,
+  `fecha_alta` datetime NOT NULL,
+  `activo` bit(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2645,12 +2646,15 @@ CREATE TABLE IF NOT EXISTS `tipos_actividades` (
 --
 
 INSERT INTO `tipos_actividades` (`cve_tipo`, `cve_unidad_negocio`, `nombre`, `activo`) VALUES
-(1, 1, 'Capacitación', b'1'),
+(1, 1, 'Curso', b'1'),
 (2, 1, 'Conferencia', b'1'),
 (3, 1, 'Consultoría', b'1'),
 (4, 1, 'Congreso', b'1'),
 (5, 1, 'Concierto', b'1'),
-(6, 1, 'Obra de teatro', b'1');
+(6, 1, 'Obra de teatro', b'1'),
+(7, 1, 'Conducción', b'1'),
+(8, 1, 'Logística de eventos masivos', b'1'),
+(9, 1, 'Exposición', b'1');
 
 -- --------------------------------------------------------
 
@@ -2670,10 +2674,10 @@ CREATE TABLE IF NOT EXISTS `tipos_contenido` (
 --
 
 INSERT INTO `tipos_contenido` (`cve_tipo_contenido`, `nombre`, `icono`, `activo`) VALUES
-(1, 'Imagen', '', b'1'),
-(2, 'Audio', '', b'1'),
+(1, 'Imagen', 'img/tipo_contenido/1.png', b'1'),
+(2, 'Audio', 'img/tipo_contenido/2.jpg', b'1'),
 (3, 'Video', '', b'1'),
-(4, 'Word', '', b'1'),
+(4, 'Word', 'img/tipo_contenido/4.docx', b'1'),
 (5, 'PDF', '', b'1'),
 (6, 'Excel', '', b'1');
 
@@ -2724,6 +2728,12 @@ ALTER TABLE `calendario_actividades_contenido`
   ADD PRIMARY KEY (`cve_actividad_contenido`),
   ADD KEY `index_1` (`cve_calendario`),
   ADD KEY `fk_reference_7` (`cve_tipo_contenido`);
+
+--
+-- Indices de la tabla `contactos`
+--
+ALTER TABLE `contactos`
+  ADD PRIMARY KEY (`cve_contacto`);
 
 --
 -- Indices de la tabla `estados`
