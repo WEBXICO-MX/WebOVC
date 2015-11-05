@@ -7,7 +7,7 @@ if (isset($_POST['xAccion2'])) {
         $cve_actividad_contenido = isset($_POST['xCveActividadContenido']) ? $_POST['xCveActividadContenido'] : 0;
         echo($cve_actividad_contenido);
         $cve_tipo_contenido = isset($_POST['xCveTipoContenido']) ? $_POST['xCveTipoContenido'] : 0;
-        $target_dir = "../img/tipo_contenido/";
+        $target_dir = "../img/calendario_actividades_contenido/";
 
         /* RENOMBRADO DEL ARCHIVO CON LA CVE_PRODUCTO */
         $name_file = basename($_FILES["fileToUpload"]["name"]);
