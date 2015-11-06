@@ -3,18 +3,12 @@ require_once 'class/UtilDB.php';
 $msg = "";
 if (isset($_POST['xAccion2'])) {
     if ($_POST["xAccion2"] == "upload") {
-
         $cve_actividad_contenido = isset($_POST['xCveActividadContenido']) ? $_POST['xCveActividadContenido'] : 0;
-        echo($cve_actividad_contenido);
-        $cve_tipo_contenido = isset($_POST['xCveTipoContenido']) ? $_POST['xCveTipoContenido'] : 0;
         $target_dir = "../img/calendario_actividades_contenido/";
-
-        /* RENOMBRADO DEL ARCHIVO CON LA CVE_PRODUCTO */
         $name_file = basename($_FILES["fileToUpload"]["name"]);
         $extension = substr($name_file, strpos($name_file, "."), strlen($name_file));
-        $new_name_file = $cve_tipo_contenido . $extension;
+        $new_name_file = $cve_actividad_contenido . $extension;
         $target_file = $target_dir . $new_name_file;
-        /* RENOMBRADO DEL ARCHIVO CON LA CVE_PRODUCTO */
 
         //$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
@@ -37,10 +31,10 @@ if (isset($_POST['xAccion2'])) {
             $msg.= "Lo sentimos, su archivo es demasiado grande.\n";
             $exito = false;
         }
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+        /*if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
             $msg.= "Lo sentimos, solo archivos JPG, JPEG, PNG y GIF son permitidos.\n";
             $exito = false;
-        }
+        }*/
         if ($uploadOk == 0) {
             $msg.= "Lo sentimos, su archivos no fue cargado al servidor.\n";
             $exito = false;
@@ -50,7 +44,7 @@ if (isset($_POST['xAccion2'])) {
                 $sql = "";
 
                 $sql = "UPDATE calendario_actividades_contenido SET url = '" . (substr($target_file, 3, strlen($target_file))) . "' WHERE cve_actividad_contenido = $cve_actividad_contenido";
-
+                echo($sql);
                 $count = UtilDB::ejecutaSQL($sql);
 
                 if ($count != 0) {
@@ -78,7 +72,7 @@ if (isset($_POST['xAccion2'])) {
     <div class="te">
         <form role="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" id="frmUpload" name="frmUpload">
             <div class="form-group">
-                <input type="hidden" id="xCveTipoContenido" name="xCveTipoContenido" value="<?php echo($_GET["xCveTipoContenido"]); ?>" />
+                <input type="hidden" id="xCveActividadContenido" name="xCveActividadContenido" value="<?php echo($_GET["xCveActividadContenido"]); ?>" />
                 <input type="hidden" id="xAccion2" name="xAccion2" value="0" />
                 <label for="fileToUpload">Seleccione imagen para subir:</label>
                 <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" placeholder="Seleccione una imagen">
