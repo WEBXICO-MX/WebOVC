@@ -62,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$sql = "SELECT cac.cve_actividad_contenido,cac.cve_calendario,cac.cve_tipo_contenido, ";
-$sql.= "concat(a.nombre,' Fecha inicio: ',DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),' Fecha fin:',DATE_FORMAT(fecha_fin,'%d/%m/%Y'))as actividad,tc.nombre as tipo_contenido,cac.activo ";
+$sql = "SELECT cac.cve_actividad_contenido,cac.cve_calendario,cac.cve_tipo_contenido,cac.url, a.nombre AS actividad2, ";
+$sql.= "concat(a.nombre,' Fecha inicio: ',DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),' Fecha fin:',DATE_FORMAT(fecha_fin,'%d/%m/%Y'))as actividad,tc.nombre as tipo_contenido,tc.icono,cac.activo ";
 $sql.= "FROM calendario_actividades_contenido as cac ";
 $sql.= "INNER JOIN calendario_actividades ca on ca.cve_calendario=cac.cve_calendario ";
 $sql.= "INNER JOIN actividades a on a.cve_actividad=ca.cve_actividad ";
@@ -163,7 +163,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                <div class="form-group">
                                     <label for="txtURL" class="col-lg-2 control-label">URL</label>
                                     <div class="col-lg-10">                                        
-                                        <input type="text" class="form-control" id="txtURL" name="txtURL" placeholder="URL" value="<?php echo($cac != NULL ? $cac->getUrl():""); ?>">
+                                        <input type="text" class="form-control" id="txtURL" name="txtURL" placeholder="URL" value="<?php echo($cac != NULL ? $cac->getUrl():""); ?>" readonly>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" id="cbxActivo" name="cbxActivo" <?php echo($cac != NULL ? ($cac->getCve_actividad_contenido() != 0 ? ($cac->getActivo() ? "checked" : "") : "checked"):""); ?>> Activo
@@ -206,7 +206,7 @@ $rst = UtilDB::ejecutaConsulta($sql);
                                 <td><?php echo($row['cve_actividad_contenido']);?></td>
                                 <td><?php echo($row['actividad']);?></td>
                                 <td><?php echo($row['tipo_contenido']);?></td>                                
-                                <th><?php echo($row['tipo_contenido'] != "" ? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['tipo_contenido']) . "\" style=\"cursor:pointer;\"/><br/><br/><a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_contenido_img.php?xCveTipoContenido=" . $row['cve_tipo_contenido'] ."&xCveActividadContenido=".$row['cve_actividad_contenido']."\" href=\"javascript:void(0);\">Cambiar imagen</a>" : "<a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_contenido_img.php?xCveTipoContenido=" . $row['cve_tipo_contenido'] . "\" href=\"javascript:void(0);\">Subir imagen</a>"); ?></th>
+                                <td><?php echo($row['url'] != "" ? ($row['cve_tipo_contenido'] == 1? "<img src=\"../img/File-JPG-icon.png\" alt=\"" . utf8_encode($row['actividad2']) . "\" title=\"" . $row['actividad2'] . "\" data-toggle=\"popover\" data-content=\"<img src='../" . $row['url'] . "' alt='" . $row['actividad2'] . "' class='img-responsive'/>\" style=\"cursor:pointer;\"/><br/><br/><a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_contenido_img.php?xCveActividadContenido=" . $row['cve_actividad_contenido'] ."\" href=\"javascript:void(0);\">Cambiar imagen</a>":"<img src=\"../".$row['icono']."\" alt=\"" . utf8_encode($row['actividad2']) . "\" title=\"" . $row['actividad2'] . "\"/><br/><br/><a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_contenido_img.php?xCveActividadContenido=" . $row['cve_actividad_contenido'] ."\" href=\"javascript:void(0);\">Cambiar contenido</a>") : "<a data-toggle=\"modal\" data-target=\"#myModal\" data-remote=\"cat_calendario_actividades_contenido_img.php?xCveActividadContenido=" . $row['cve_actividad_contenido'] . "\" href=\"javascript:void(0);\">Subir contenido</a>"); ?></td>
                                 <td><?php echo($row['activo'] == 1 ? "Si":"No");?></td>
                                 <td><a href="javascript:void(0);" onclick="editar(<?php echo($row['cve_actividad_contenido']);?>);"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a href="javascript:void(0);" onclick="if(confirm('¿Está realmente seguro de eliminar este registro?')){eliminar(<?php echo($row['cve_actividad_contenido']);?>);}else{ return false;};"><span class="glyphicon glyphicon-erase"></span></a></td>
@@ -230,7 +230,10 @@ $rst = UtilDB::ejecutaConsulta($sql);
             <script src="../twbs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
             <script>
             
-            $(document).ready(function(){                              
+            $(document).ready(function(){
+                
+                $('[data-toggle="popover"]').popover({placement: 'top', html: true, trigger: 'click hover'});
+                
                 $('body').on('hidden.bs.modal', '.modal', function () {
                     $(this).removeData('bs.modal');
                 });                
